@@ -1,0 +1,129 @@
+html {
+    background: url(/assets/images/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+#main{
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.content{
+    background: white ;
+    min-height: 800px;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 110px 0;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.step1{
+    min-height: 800px;
+    padding: 0;
+}
+
+.cardd{
+    position: relative;
+    margin: 15px;
+    display: inline-block;
+    width: 300px;
+    margin-bottom: 50px;
+
+}
+
+.ui-card{
+    width: 300px !important;
+}
+
+p-card img{
+    width: 200px !important;
+    height: 200px !important;
+    margin-top-top: 20px;
+}
+
+
+ .ui-card-body{
+    text-align: left;
+
+}
+
+.ui-card-header{
+    margin-top: 40px;
+
+}
+
+body .ui-card {
+    box-shadow:
+            0 3px 5px 0 rgba(0, 0, 0, 0.2),
+            0 3px 3px 0 rgba(0, 0, 0, 0.14),
+            0 4px 3px -1px rgba(0, 0, 0, 0.12) ;
+
+    border-top: 1px rgba(18,10,20,0.18) solid;
+}
+
+
+
+
+
+
+
+.addBasketButton {
+    position: absolute;
+    left: 180px;
+    bottom: 20px;
+    width: 60px;
+    height: 30px;
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+
+
+
+
+
+.headd{
+    height: 100px;
+    font-family: Oswald;
+    color: #fead04;
+    font-size: 20px;
+    width: 100%;
+    background-color: #f7f7f7;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+
+}
+
+h1 {
+    padding-left: 30px;
+    font-size: 20px;
+    background: -webkit-linear-gradient(#e7b20a, #ffb109);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+
+
+

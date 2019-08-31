@@ -1,0 +1,14 @@
+.basket_card {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.basket_card_in {
+    margin: auto;
+}
+
+body .ui-card {
+    text-align: left;
+    position: relative;
+    margin: 20px;
+}
