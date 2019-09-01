@@ -5,6 +5,7 @@ import {SpinerService} from "../spiner.service";
 import {Event} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -13,11 +14,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class AppComponent  implements OnInit{
 	title = 'app';
-	isLinear = false;
-	firstFormGroup: FormGroup;
-	secondFormGroup: FormGroup;
-    isThisStepDone : boolean = false;
-    card: number[]=[1,2,3,4,5,6,7,8,9];
+
+
 
 	constructor(private _formBuilder: FormBuilder, routingState: RoutingState, public spinerService: SpinerService, public router: Router) {
 
@@ -49,12 +47,7 @@ export class AppComponent  implements OnInit{
 
 
 	ngOnInit() {
-		this.firstFormGroup = this._formBuilder.group({
-			firstCtrl: ['', Validators.required]
-		});
-		this.secondFormGroup = this._formBuilder.group({
-			secondCtrl: ['', Validators.required]
-		});
+
 	}
 
 

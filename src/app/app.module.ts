@@ -11,6 +11,10 @@ import {SpinerService} from './spiner.service';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import { ProductPickerComponent } from './product-picker/product-picker.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {PrizeService} from './product-picker/prize-service';
+import {TokenInterceptor} from './token.interceptor';
+import {AuthenticationService} from './auth.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,7 @@ import { ProductPickerComponent } from './product-picker/product-picker.componen
   ],
   imports: [
     BrowserModule,
+      HttpClientModule,
     AppRoutingModule,
       MatStepperModule,
       MatFormFieldModule,
@@ -30,7 +35,9 @@ import { ProductPickerComponent } from './product-picker/product-picker.componen
       CardModule,
     ButtonModule
   ],
-  providers: [RoutingState,SpinerService
+  providers: [
+       {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+      RoutingState,SpinerService,PrizeService,AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
