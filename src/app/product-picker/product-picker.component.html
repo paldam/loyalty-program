@@ -14,26 +14,43 @@
         </div>
 
 
+        <div class="sorting_section">
+
+
+            <div class="price-sort-div">
+                <h1 >Cena od: {{rangeValues[0] + ' punktów do ' + rangeValues[1]+ ' punktów'}} </h1>
+                <p-slider *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues" [style]="{'width':'14em'}"  [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]"  [step]="100"  (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
+            </div>
+
+            <div class="sortdiv">
+                <span> Sortuj: </span>
+                <button type="button" class="btn btn-secondary" (click)="sortBasketASC()">Rosnąco</button>
+                <button type="button" class="btn btn-secondary" (click)="sortBasketDESC()">Malejąco</button>
+            </div>
+
+        </div>
+
+
         <div class="row">
-            <div class="steper fadeIn">
+            <div class="steper ">
                 <mat-horizontal-stepper  [linear]="false" #stepper labelPosition="bottom">
 
 
 
                     <mat-step  [completed]="false">
-                        <ng-template matStepLabel>Wybierz prezent</ng-template>
+                        <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
                         <div class="step1 ">
 
-                            <p-card  *ngFor="let i of prize" class="cardd fadeIn " header="{{i.name}}" subheader="{{i.pkt}} punktów" [style]="{width: '360px'}">
+                            <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}" [style]="{width: '360px'}">
                                 <p-header>
-                                    <img src={{i.imageLink}}>
+                                    <img  src={{i.imageLink}}>
                                 </p-header>
                                 <div class="scrollbar scrollbar-pink">{{i.description}}
 
 
                                 </div>
                                 <p-footer >
-                                    <i class="fas fa-cart-arrow-down fa-3x icon-grey basket-add"></i>
+                                    <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' " class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn" (click)="basketService.addPrizeToBasket(i)"></i>
                                     <div class="points icon-grey">{{i.pkt}} punktów</div>
 
                                 </p-footer>

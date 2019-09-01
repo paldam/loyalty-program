@@ -1,0 +1,22 @@
+<i *ngIf="basketService.basketLines.length>0" class="fas fa-shopping-basket basket-total-icon fa-4x"></i>
+
+<span [class]="getBadgeStyle()">{{basketService.basketLines.length}}</span>
+
+<div id="basket_total">
+
+
+    <div *ngFor="let basketLine of basketService.basketLines">
+
+        <span> {{basketLine.prize.name}} || </span>
+        <span> <input type="number" class="form-control" name="" id="" aria-describedby="helpId"
+                                       placeholder="" min="0" [value]="basketLine.quantity"
+                                       (change)="basketService.updateQuantity(basketLine,$event.target.value)"> </span>
+        <span (click)="basketService.deleteLine(basketLine)"> delete </span>
+    </div>
+
+<div> TOTAL : {{basketService.basketTotalPkt}}</div>
+
+ <div> <button *ngIf="basketService.basketTotalPkt <= userService.userPkt && basketService.basketTotalPkt > 0 " class="btn-primary" > Idz dalej </button></div>
+
+
+</div>

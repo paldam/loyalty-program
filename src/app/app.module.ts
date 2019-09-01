@@ -15,11 +15,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {PrizeService} from './product-picker/prize-service';
 import {TokenInterceptor} from './token.interceptor';
 import {AuthenticationService} from './auth.service';
+import {SliderModule} from 'primeng/slider';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductPickerComponent
+    ProductPickerComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import {AuthenticationService} from './auth.service';
       FormsModule,
       ReactiveFormsModule,
       CardModule,
+      SliderModule,
     ButtonModule
   ],
   providers: [
