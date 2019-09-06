@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import {AppComponent} from './main-app-component/app.component';
-import {MatFormFieldModule, MatIconModule, MatInputModule, MatStepperModule} from '@angular/material';
+import {
+    ErrorStateMatcher,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatStepperModule,
+    ShowOnDirtyErrorStateMatcher
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {RoutingState} from './routing-stage';
@@ -17,6 +24,8 @@ import {TokenInterceptor} from './token.interceptor';
 import {AuthenticationService} from './auth.service';
 import {SliderModule} from 'primeng/slider';
 import { BasketComponent } from './basket/basket.component';
+
+
 
 @NgModule({
   declarations: [
@@ -41,6 +50,7 @@ import { BasketComponent } from './basket/basket.component';
   ],
   providers: [
        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+      {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
       RoutingState,SpinerService,PrizeService,AuthenticationService
   ],
   bootstrap: [AppComponent]

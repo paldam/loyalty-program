@@ -33,11 +33,11 @@
 
         <div class="row">
             <div class="steper ">
-                <mat-horizontal-stepper  [linear]="false" #stepper labelPosition="bottom">
+                <mat-horizontal-stepper  [linear]="true" #stepper labelPosition="bottom">
 
 
 
-                    <mat-step  [completed]="false">
+                    <mat-step  [completed]="true">
                         <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
                         <div class="step1 ">
 
@@ -58,29 +58,85 @@
 
                         </div>
                     </mat-step>
-                    <mat-step  [completed]="false" edita>
-                        <form [formGroup]="secondFormGroup">
-                            <ng-template matStepLabel>Dane do wysyłki</ng-template>
-                            <mat-form-field>
-                                <input matInput placeholder="Address" formControlName="secondCtrl" required>
+                    <mat-step  [completed]="orderForm.valid" >
+
+                        <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
+
+                        <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
+
+                            <mat-form-field class="full-width">
+                                <input  matInput placeholder="Imię i nazwisko *"  formControlName="nameFormControl" [errorStateMatcher]="matcher" >
+                                <mat-error *ngIf="firstFormGroup.get('nameFormControl').errors?.required">
+                                    To pole jest wymagane
+                                </mat-error>
                             </mat-form-field>
+
+                            <mat-form-field class="full-width">
+                                <input  matInput placeholder="Ulica i numer domu / lokalu *"  formControlName="addressFormControl" [errorStateMatcher]="matcher" >
+                                <mat-error *ngIf="firstFormGroup.get('addressFormControl').errors?.required">
+                                    To pole jest wymagane
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!--<mat-form-field class="full-width">-->
+                                <!--<input  matInput placeholder="Kod pocztowy *"  [formControl]="zipFormControl" [errorStateMatcher]="matcher"  >-->
+                                <!--<mat-error *ngIf="zipFormControl.hasError('required')">-->
+                                    <!--To pole jest wymagane-->
+                                <!--</mat-error>-->
+                                <!--<mat-error *ngIf="zipFormControl.hasError('pattern')">-->
+                                    <!--Niepoprawny format kodu pocztowego. Prawidłowy format np:  01-355-->
+                                <!--</mat-error>-->
+
+                            <!--</mat-form-field>-->
+
+
+
+                            <!--<mat-form-field class="full-width">-->
+                                <!--<input  matInput placeholder="Miejscowość *"  [formControl]="cityFormControl" [errorStateMatcher]="matcher" >-->
+                                <!--<mat-error *ngIf="cityFormControl.hasError('required')">-->
+                                    <!--To pole jest wymagane-->
+                                <!--</mat-error>-->
+                            <!--</mat-form-field>-->
+
+                            <!--<mat-form-field class="full-width">-->
+                                <!--<input  matInput placeholder="Telefon *"  [formControl]="phoneFormControl" [errorStateMatcher]="matcher" >-->
+                                <!--<mat-error *ngIf="phoneFormControl.hasError('required')">-->
+                                    <!--To pole jest wymagane-->
+                                <!--</mat-error>-->
+                            <!--</mat-form-field>-->
+
+                            <!--<mat-form-field class="full-width">-->
+                                <!--<input  matInput placeholder="Email *"  [formControl]="emailFormControl" [errorStateMatcher]="matcher" >-->
+                                <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
+                                    <!--To pole jest wymagane-->
+                                <!--</mat-error>-->
+                                <!--<mat-error *ngIf="emailFormControl.hasError('email')">-->
+                                    <!--email jest nie poprawny-->
+                                <!--</mat-error>-->
+                            <!--</mat-form-field>-->
+
+
+
                             <div>
-                                <button mat-button matStepperPrevious>Back</button>
-                                <button mat-button matStepperNext>Next</button>
+                                <button  mat-button matStepperPrevious>Back</button>
+                                <button (click)="test(orderForm)" mat-button matStepperNext>Next</button>
                             </div>
                         </form>
+
+
+
+
+
+
+
                     </mat-step>
                     <mat-step [completed]="false">
-                        <form [formGroup]="secondFormGroup">
                             <ng-template matStepLabel>Dodatkowe inforamcje</ng-template>
-                            <mat-form-field>
-                                <input matInput placeholder="Address" formControlName="secondCtrl" required>
-                            </mat-form-field>
+
                             <div>
                                 <button mat-button matStepperPrevious>Back</button>
                                 <button mat-button matStepperNext>Next</button>
                             </div>
-                        </form>
                     </mat-step>
                     <mat-step [completed]="false">
                         <ng-template matStepLabel>Podsumowanie</ng-template>

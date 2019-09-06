@@ -4,6 +4,9 @@ import {PrizeService} from './prize-service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BasketService} from '../basket/basket.service';
 import {UserService} from '../user.service';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {MyErrorStateMatcher} from '../my-error-state-matcher';
 
 @Component({
     selector: 'app-product-picker',
@@ -12,9 +15,49 @@ import {UserService} from '../user.service';
     encapsulation: ViewEncapsulation.None
 })
 export class ProductPickerComponent implements OnInit {
+
+
+
+
+
+
+    // nameFormControl = new FormControl('', [
+    //     Validators.required,
+    // ]);
+    // addressFormControl= new FormControl('', [
+    //     Validators.required,
+    // ]);
+    //
+    //
+    // firstFormGroup: FormGroup = new FormGroup({
+    //     name: this.nameFormControl,
+    //     address: this.addressFormControl
+    // });
+    //
+    // cityFormControl = new FormControl('', [
+    //     Validators.required,
+    // ]);
+    // phoneFormControl = new FormControl('', [
+    //     Validators.required,
+    // ]);
+    //
+    // emailFormControl = new FormControl('', [
+    //     Validators.required,
+    //     Validators.email
+    // ]);
+    //
+    // zipFormControl = new FormControl('', [
+    //     Validators.required,
+    //     Validators.pattern('[0-9]{2}-[0-9]{3}')
+    //
+    // ]);
+
+    matcher = new MyErrorStateMatcher();
+
     public prizes: Prize[] = [];
+
+
     firstFormGroup: FormGroup;
-    secondFormGroup: FormGroup;
     filtersLoaded: Promise<boolean>;
     public rangeValues: number[] = [0, 0];
     public rangeConst: number[] = [0, 0];
@@ -47,14 +90,21 @@ export class ProductPickerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.firstFormGroup = this._formBuilder.group({
-            firstCtrl: ['', Validators.required]
+        this.firstFormGroup = new FormGroup({
+            'nameFormControl': new FormControl(null, Validators.required),
+            'addressFormControl': new FormControl(null,Validators.required)
         });
-        this.secondFormGroup = this._formBuilder.group({
-            secondCtrl: ['', Validators.required]
-        });
+
     }
 
+    
+    
+    test(form : NgForm){
+        
+        console.log(form);
+    }
+    
+    
 
     sortBasketDESC() {
         this.prizesfiltered.sort((a, b): number => {
