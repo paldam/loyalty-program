@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 
 import {Prize} from '../model/prize';
+import {PrizeOrder} from '../model/prize-order.model';
 
 @Injectable()
 export class PrizeService {
@@ -15,7 +16,11 @@ export class PrizeService {
     }
 
     getPrize(){
-        return this.http.get<Prize[]>(this.baseUrl+`/prizelist`);
+        return this.http.get<Prize[]>(this.baseUrl+`/prize/prizelist`);
+    }
+
+    saveOrder(order :PrizeOrder){
+        return this.http.post(this.baseUrl+`/prize/order`,order);
     }
 
 

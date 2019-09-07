@@ -3,6 +3,7 @@ import {EventEmitter, Injectable, Output} from "@angular/core";
 import {Router} from "@angular/router";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {HttpClient} from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 export const TOKEN: string = 'jwt_token';
 export const TOKEN_USER: string = 'jwt_token_user';
@@ -27,27 +28,32 @@ export class AuthenticationService {
 
     @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
 
-    // login(username: string, password: string): Observable<boolean> {
-    //     const data = {
-    //         username: username,
-    //         password: password
-    //     };
-    //     return this.http.post(this.baseUrl + `/auth`, data).map((response: Response) =>{
-    //         let token = response.json() && response.json().id_token;
-    //         if (token) {
-    //             this.id_token=token;
-    //             localStorage.setItem(TOKEN,token);
-    //             localStorage.setItem(TOKEN_USER, username);
-    //             this.getLoggedInName.emit(this.getCurrentUser());
-    //             return true;
-    //         }else{
-    //             this.getLoggedInName.emit("wylogowano");
-    //             return false;
-    //         }
-    //
-    //     })
-    //
-    // }
+    login(username: string, password: string): Observable<boolean> {
+        const data = {
+            username: username,
+            password: password
+        };
+        return this.http.post(this.baseUrl + `/auth`, data).pipe(
+
+
+        map((response: any) =>{
+            let token = response.id_token;
+
+            if (token) {
+                this.id_token=token;
+                localStorage.setItem(TOKEN,token);
+                localStorage.setItem(TOKEN_USER, username);
+                this.getLoggedInName.emit(this.getCurrentUser());
+                return true;
+            }else{
+                this.getLoggedInName.emit("wylogowano");
+                return false;
+            }
+
+        })
+        )
+
+    }
 
 
     logout(): void {
@@ -55,6 +61,7 @@ export class AuthenticationService {
         localStorage.removeItem(TOKEN);
         localStorage.removeItem(TOKEN_USER);
         this.getLoggedInName.emit("wylogowano");
+        this.router.navigate(['login']);
     }
 
     isLoggedIn() : boolean{

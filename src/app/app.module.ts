@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import {AppComponent} from './main-app-component/app.component';
 import {
     ErrorStateMatcher,
@@ -24,19 +22,24 @@ import {TokenInterceptor} from './token.interceptor';
 import {AuthenticationService} from './auth.service';
 import {SliderModule} from 'primeng/slider';
 import { BasketComponent } from './basket/basket.component';
+import {LoginComponent} from './login/login.component';
+import {AuthGuard} from './guard/auth.guard';
+import {routing} from './app.routing';
+import {ProgressSpinnerModule} from 'primeng/primeng';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+      LoginComponent,
     ProductPickerComponent,
     BasketComponent
   ],
   imports: [
+      routing,
     BrowserModule,
       HttpClientModule,
-    AppRoutingModule,
       MatStepperModule,
       MatFormFieldModule,
       MatIconModule,
@@ -46,12 +49,13 @@ import { BasketComponent } from './basket/basket.component';
       ReactiveFormsModule,
       CardModule,
       SliderModule,
-    ButtonModule
+    ButtonModule,
+      ProgressSpinnerModule
   ],
   providers: [
        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
       {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-      RoutingState,SpinerService,PrizeService,AuthenticationService
+      RoutingState,SpinerService,PrizeService,AuthenticationService,AuthGuard
   ],
   bootstrap: [AppComponent]
 })

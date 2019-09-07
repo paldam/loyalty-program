@@ -1,7 +1,7 @@
 
 import {Injectable} from "@angular/core";
 import {Prize} from '../model/prize';
-import {Basket} from '../model/basket.model';
+import {PrizeOrderItems} from '../model/prize-order-items';
 import {UserService} from '../user.service';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class BasketService {
     }
 
     public prizeList: Prize[] = [];
-    public basketLines: Basket[] = [];
+    public basketLines: PrizeOrderItems[] = [];
     public basketTotalPkt: number = 0;
 
     addPrizeToBasket(prize: Prize) {
@@ -28,7 +28,7 @@ export class BasketService {
                 return value.prize.id == prize.id;
             });
             if (line == undefined) {
-                this.basketLines.push(new Basket(prize, 1));
+                this.basketLines.push(new PrizeOrderItems(prize, 1));
             } else {
                 line.quantity = line.quantity + 1;
             }
@@ -38,7 +38,7 @@ export class BasketService {
 
     }
 
-    deleteLine(basket : Basket){
+    deleteLine(basket : PrizeOrderItems){
 
         let index = this.basketLines.findIndex(data=> data.prize.id == basket.prize.id);
         if (index > -1) {
@@ -47,7 +47,7 @@ export class BasketService {
         this.recalculate()
     }
 
-    updateQuantity(basketLine: Basket, quantity: number) {
+    updateQuantity(basketLine: PrizeOrderItems, quantity: number) {
         if (quantity == 0) {
             this.deleteLine(basketLine);
         }

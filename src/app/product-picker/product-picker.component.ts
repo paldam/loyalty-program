@@ -7,6 +7,9 @@ import {UserService} from '../user.service';
 import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MyErrorStateMatcher} from '../my-error-state-matcher';
+import {PrizeOrder} from '../model/prize-order.model';
+import {AuthenticationService} from '../auth.service';
+import {SpinerService} from '../spiner.service';
 
 @Component({
     selector: 'app-product-picker',
@@ -15,59 +18,53 @@ import {MyErrorStateMatcher} from '../my-error-state-matcher';
     encapsulation: ViewEncapsulation.None
 })
 export class ProductPickerComponent implements OnInit {
-
-
-
-
-
-
-    // nameFormControl = new FormControl('', [
-    //     Validators.required,
-    // ]);
-    // addressFormControl= new FormControl('', [
-    //     Validators.required,
-    // ]);
-    //
-    //
-    // firstFormGroup: FormGroup = new FormGroup({
-    //     name: this.nameFormControl,
-    //     address: this.addressFormControl
-    // });
-    //
-    // cityFormControl = new FormControl('', [
-    //     Validators.required,
-    // ]);
-    // phoneFormControl = new FormControl('', [
-    //     Validators.required,
-    // ]);
-    //
-    // emailFormControl = new FormControl('', [
-    //     Validators.required,
-    //     Validators.email
-    // ]);
-    //
-    // zipFormControl = new FormControl('', [
-    //     Validators.required,
-    //     Validators.pattern('[0-9]{2}-[0-9]{3}')
-    //
-    // ]);
-
     matcher = new MyErrorStateMatcher();
-
     public prizes: Prize[] = [];
-
-
-    firstFormGroup: FormGroup;
-    filtersLoaded: Promise<boolean>;
+    public order: PrizeOrder = new PrizeOrder();
+    public firstFormGroup: FormGroup;
+    public filtersLoaded: Promise<boolean>;
     public rangeValues: number[] = [0, 0];
     public rangeConst: number[] = [0, 0];
     public prizesfiltered: any[] = [];
 
-    constructor(private _formBuilder: FormBuilder, prizeService: PrizeService, public basketService: BasketService, public userService :UserService) {
-        prizeService.getPrize().subscribe(data => {
-            this.prizes = data;
+    constructor(private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
+        this.setUserPoints();
+        this.setPrizeFilter();
+    }
+
+    ngOnInit() {
+        this.firstFormGroup = new FormGroup({
+            'nameFormControl': new FormControl(null, Validators.required),
+            'addressFormControl': new FormControl(null, Validators.required),
+            'zipFormControl': new FormControl(null, [Validators.pattern('[0-9]{2}-[0-9]{3}')]),
+            'cityFormControl': new FormControl(null, Validators.required),
+            'phoneFormControl': new FormControl(null, Validators.required),
+            'emailFormControl': new FormControl(null, [Validators.required, Validators.email]),
         });
-        prizeService
+    }
+
+    private getPrize() {
+        this.spinerService.showSpinner = true;
+        this.prizeService.getPrize().subscribe(data => {
+            this.prizes = data;
+        },error1 => {
+
+        },() => {
+            this.spinerService.showSpinner = false;
+        });
+    }
+
+    private setUserPoints() {
+        this.userService.getCurrentUserPoints().subscribe((value: number) => {
+            this.userService.userPkt = value;
+        }, error => {
+        }, () => {
+            this.getPrize();
+        });
+    }
+
+    private setPrizeFilter() {
+        this.prizeService
             .getPrize()
             .toPromise()
             .then(res => {
@@ -89,26 +86,20 @@ export class ProductPickerComponent implements OnInit {
             });
     }
 
-    ngOnInit() {
-        this.firstFormGroup = new FormGroup({
-            'nameFormControl': new FormControl(null, Validators.required),
-            'addressFormControl': new FormControl(null,Validators.required)
-        });
-
-    }
-
-    
-    
-    test(form : NgForm){
-        
-        console.log(form);
-    }
-    
-    
-
     sortBasketDESC() {
         this.prizesfiltered.sort((a, b): number => {
             return b.pkt - a.pkt;
+        });
+    }
+
+    saveOrder() {
+        this.order.prizeOrderItems = this.basketService.basketLines;
+        this.order.orderTotalAmount = this.basketService.basketTotalPkt;
+        this.prizeService.saveOrder(this.order).subscribe(value => {
+            console.log(value);
+        }, error => {
+            console.log(error);
+        }, () => {
         });
     }
 
@@ -120,10 +111,8 @@ export class ProductPickerComponent implements OnInit {
 
     filterByPriceRange(a: number, b: number) {
         console.log('Zakres do sortowania od ' + a + ' do ' + b);
-
         this.prizesfiltered = this.prizes.filter((prize: Prize) => {
             return prize.pkt >= a && prize.pkt <= b;
         });
     }
-
 }

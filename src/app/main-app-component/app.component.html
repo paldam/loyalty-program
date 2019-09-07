@@ -1,2 +1,5 @@
-<app-product-picker></app-product-picker>
-<app-basket></app-basket>
+<router-outlet></router-outlet>
+
+<div *ngIf="spinerService.showSpinner" class="spinner_overlay">
+    <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+</div>
