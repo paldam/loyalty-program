@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthenticationService, TOKEN} from './auth.service';
+import { TOKEN} from './auth.service';
 import 'rxjs/add/operator/do';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-    constructor(private authService: AuthenticationService) {
+    constructor() {
     }
 
-    public token = localStorage.getItem(TOKEN);
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         request = request.clone({
 
             setHeaders: {
-                Authorization: `Bearer ${this.token}`
+                Authorization: `Bearer ${localStorage.getItem(TOKEN)}`
             }
         });
 
@@ -26,7 +25,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
                 if (err.status === 401) {
-                    console.log("BLAD 40111111111111111111111");
+
                 }
             }
         });

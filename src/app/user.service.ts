@@ -9,7 +9,7 @@ import {TOKEN} from './auth.service';
 })
 export class UserService {
 
-    public userPkt = 5000;
+    public userPkt = 0;
 
 
     public protocol: string = "http";

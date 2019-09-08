@@ -57,6 +57,7 @@ export class ProductPickerComponent implements OnInit {
     private setUserPoints() {
         this.userService.getCurrentUserPoints().subscribe((value: number) => {
             this.userService.userPkt = value;
+            console.log("ustawiam punkty");
         }, error => {
         }, () => {
             this.getPrize();

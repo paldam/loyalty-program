@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {BasketService} from './basket/basket.service';
+import {TokenInterceptor} from './token.interceptor';
 
 export const TOKEN: string = 'jwt_token';
 export const TOKEN_USER: string = 'jwt_token_user';
@@ -18,7 +20,7 @@ export class AuthenticationService {
     public baseUrl: string;
     public id_token: string;
 
-    constructor(private http: HttpClient,private router: Router) {
+    constructor(private http: HttpClient,private router: Router, private basketService :BasketService) {
 
         this.baseUrl = `${this.protocol}://${location.hostname}:${this.port}`;
 
@@ -58,10 +60,14 @@ export class AuthenticationService {
 
     logout(): void {
         this.id_token = null;
+        this.tokenInterceptor = new TokenInterceptor();
         localStorage.removeItem(TOKEN);
         localStorage.removeItem(TOKEN_USER);
+        this.basketService.basketLines= [];
+        this.basketService.basketTotalPkt = 0;
         this.getLoggedInName.emit("wylogowano");
         this.router.navigate(['login']);
+
     }
 
     isLoggedIn() : boolean{
