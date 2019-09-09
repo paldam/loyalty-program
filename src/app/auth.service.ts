@@ -60,7 +60,6 @@ export class AuthenticationService {
 
     logout(): void {
         this.id_token = null;
-        this.tokenInterceptor = new TokenInterceptor();
         localStorage.removeItem(TOKEN);
         localStorage.removeItem(TOKEN_USER);
         this.basketService.basketLines= [];

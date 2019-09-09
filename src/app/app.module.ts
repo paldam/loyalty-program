@@ -25,7 +25,9 @@ import { BasketComponent } from './basket/basket.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './guard/auth.guard';
 import {routing} from './app.routing';
-import {ProgressSpinnerModule} from 'primeng/primeng';
+import {DialogModule, MessageService, OverlayPanelModule, PanelModule, ProgressSpinnerModule} from 'primeng/primeng';
+import {MessageServiceExt} from './messages/messageServiceExt';
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -50,12 +52,17 @@ import {ProgressSpinnerModule} from 'primeng/primeng';
       CardModule,
       SliderModule,
     ButtonModule,
-      ProgressSpinnerModule
+      ProgressSpinnerModule,
+      OverlayPanelModule,
+      DialogModule,
+      PanelModule,
+      ToastModule
+
   ],
   providers: [
        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
       {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-      RoutingState,SpinerService,PrizeService,AuthenticationService,AuthGuard
+      RoutingState,SpinerService,PrizeService,AuthenticationService,AuthGuard,MessageServiceExt,MessageService
   ],
   bootstrap: [AppComponent]
 })
