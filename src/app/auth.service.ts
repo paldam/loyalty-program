@@ -35,7 +35,7 @@ export class AuthenticationService {
             username: username,
             password: password
         };
-        return this.http.post(this.baseUrl + `/auth`, data).pipe(
+        return this.http.post(this.baseUrl + `/auth_loyalty_program`, data).pipe(
 
 
         map((response: any) =>{
@@ -75,9 +75,6 @@ export class AuthenticationService {
     }
 
 
-   getToken(): string {
-        return "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYWxkYW0iLCJhdXRoIjoiYWRtaW4iLCJleHAiOjE1Njg0MTAzNTF9.51dY3vfIMnJtUW_hZSTXCcJd8NqhGZx2HLBrn2gUvnnNV0uZbDj3gkz1KqkgxdNx1RrQC8se3xDxQZWPBTxKKA"
-   }
 
     getCurrentUser(){
         if (localStorage.getItem(TOKEN))  {
