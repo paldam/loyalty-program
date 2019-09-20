@@ -19,10 +19,14 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = '';
   public showChangePassworModal: boolean = false;
+    public showResetPasswordModal: boolean = false;
     public passwordChange: PasswordChange = new PasswordChange();
     public formSubmitted: boolean = false;
+    public formResetSubmitted: boolean = false;
     public passwordConfirm: string = '';
     public passwordDontMatch: any = null;
+    public emailToReset: string;
+    public resetText: boolean = false;
 
   constructor(
       private router: Router, private authenticationService: AuthenticationService, private userService :UserService, private messageService: MessageServiceExt) { }
@@ -33,6 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
     login() {
+        this.resetText = false;
         this.loading = true;
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
@@ -59,6 +64,29 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
             });
     }
+
+    submitResetPassForm(form) {
+        this.formResetSubmitted = true;
+
+        if (form.valid) {
+
+            console.log(this.emailToReset);
+            this.userService.resetPassword(this.emailToReset).subscribe(data => {
+                    form.reset();
+                    this.formResetSubmitted  = false;
+                    this.showResetPasswordModal = false;
+                    this.resetText = true;
+
+                    setTimeout(() => {
+                        this.resetText = false;
+                    }, 10000);
+                },
+                err => {
+                    this.messageService.addMessageWithTime('error', 'Status', err.error, 5000);
+                });
+        }
+    }
+
 
     submitChangePassForm(form: NgForm) {
         this.formSubmitted = true;

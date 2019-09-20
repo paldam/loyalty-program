@@ -28,6 +28,7 @@ import {routing} from './app.routing';
 import {DialogModule, MessageService, OverlayPanelModule, PanelModule, ProgressSpinnerModule} from 'primeng/primeng';
 import {MessageServiceExt} from './messages/messageServiceExt';
 import {ToastModule} from 'primeng/toast';
+import {MainmanuComponent} from './mainmanu/mainmanu.component';
 
 
 
@@ -36,7 +37,8 @@ import {ToastModule} from 'primeng/toast';
     AppComponent,
       LoginComponent,
     ProductPickerComponent,
-    BasketComponent
+    BasketComponent,
+      MainmanuComponent
   ],
   imports: [
       routing,

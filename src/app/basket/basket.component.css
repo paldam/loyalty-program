@@ -47,6 +47,62 @@
     position: absolute;
     top: 100px;
     right: 0px;
+
 }
 
+
+
+/*.basket-right {*/
+    /*height: 500px;*/
+    /*width: 380px;*/
+    /*position: fixed;*/
+    /*z-index: 998;*/
+    /*top: 100px;*/
+    /*right: 0;*/
+    /*background-color:#363a41;*/
+    /*overflow-x: hidden;*/
+    /*transition: 0.5s;*/
+    /*padding-top: 20px;*/
+    /*box-shadow: 3px 0px 5px #888888;*/
+/*}*/
+
+.bask_ico{
+    height: 70px;
+    width: 70px;
+    background-color: #fead04;
+    position: absolute;
+    left: -70px;
+    text-align: center;
+    box-shadow: -7px 8px 10px -4px  #888888;
+
+}
+
+.bask_png{
+    position: relative;
+    left: -2px;
+    top: 3px;
+}
+
+.basket_cont{
+    position: fixed;
+    transition: 0.5s;
+    right: 0px;
+    top: 100px;
+    z-index: 998;
+    height: 600px;
+    width:0px;
+    background-color: #fead04;
+    box-shadow: -2px 6px 10px -2px #888888;
+}
+
+.basket_int{
+    padding: 15px;
+}
+
+.basket_head{
+    width: 370px;
+    height: 45px;
+    background-color: #f80943;
+    border-radius: 9px;
+}
 

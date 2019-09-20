@@ -1,174 +1,174 @@
+<!--<button (click)="authenticationService.logout()" class="btn btn-primary">Wyloguj</button>-->
 
-<button (click)="authenticationService.logout()" class="btn btn-primary">Wyloguj</button>
-
-<span>TWOJE PUKTY :  {{userService.userPkt}}</span>
-
-<div id="main">
-    <div class="content">
-
-        <div class="row">
-            <div class="headd col-12">
-                <h1 class="bled1">Masz pytania zadzwoń</h1>
-                <h1>22 053 233 232</h1>
-
-            </div>
-
-        </div>
+<!--<span>TWOJE PUKTY :  {{userService.userPkt}}</span>-->
 
 
-        <div class="sorting_section">
 
 
-            <div class="price-sort-div">
-                <h1 >Cena od: {{rangeValues[0] + ' punktów do ' + rangeValues[1]+ ' punktów'}} </h1>
-                <p-slider *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues" [style]="{'width':'14em'}"  [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]"  [step]="100"  (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
-            </div>
-
-            <div class="sortdiv">
-                <span> Sortuj: </span>
-                <button type="button" class="btn btn-secondary" (click)="sortBasketASC()">Rosnąco</button>
-                <button type="button" class="btn btn-secondary" (click)="sortBasketDESC()">Malejąco</button>
-            </div>
-
-        </div>
 
 
-        <div class="row">
-            <div class="steper ">
-                <mat-horizontal-stepper  [linear]="true" #stepper labelPosition="bottom">
 
-                    <ng-template matStepperIcon="done">
-                        <mat-icon>done_all</mat-icon>
-                    </ng-template>
-                    <ng-template matStepperIcon="edit">
-                        <mat-icon>done</mat-icon>
-                    </ng-template>
 
-                    <mat-step  [completed]="basketService.basketLines.length >0">
-                        <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
-                        <div class="step1 ">
 
-                            <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}" [style]="{width: '360px'}">
+        <div class="steper ">
+            <mat-horizontal-stepper [linear]="true" #stepper labelPosition="bottom">
+
+                <ng-template matStepperIcon="done">
+                    <mat-icon>done_all</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="edit">
+                    <mat-icon>done</mat-icon>
+                </ng-template>
+
+                <mat-step [completed]="basketService.basketLines.length >0">
+                    <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
+                    <div class="step1 ">
+
+
+                        <div class="sorting_section">
+
+
+                            <div class="price-sort-div">
+                                <span>Zakres od: {{rangeValues[0] + ' punktów do  ' + rangeValues[1]+ ' punktów'}} </span>
+                                <p-slider class="slider" *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues"
+                                          [style]="{'width':'14em'}"
+                                          [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]" [step]="100"
+                                          (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
+                            </div>
+
+                            <div class="sortdiv">
+                                <span> Sortuj: </span>
+                                <button type="button" class="btn btn-secondary" (click)="sortBasketASC()">Rosnąco
+                                </button>
+                                <button type="button" class="btn btn-secondary" (click)="sortBasketDESC()">
+                                    Malejąco
+                                </button>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="card_section">
+
+                            <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}"
+                                    [style]="{width: '360px'}">
                                 <p-header>
-                                    <img  src={{i.imageLink}}>
+                                    <img src="http://www.kosze.waw.pl/images/prizes/{{i.id}}.jpg" width="200"
+                                         height="200">
                                 </p-header>
                                 <div class="scrollbar scrollbar-pink">{{i.description}}
 
 
                                 </div>
-                                <p-footer >
-                                    <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' " class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn" (click)="basketService.addPrizeToBasket(i)"></i>
+                                <p-footer>
+                                    <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
+                                       class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
+                                       (click)="basketService.addPrizeToBasket(i)"></i>
                                     <div class="points icon-grey">{{i.pkt}} punktów</div>
 
                                 </p-footer>
                             </p-card>
-
                         </div>
-                    </mat-step>
-                    <mat-step  [completed]="orderForm.valid" >
+                    </div>
+                </mat-step>
+                <mat-step [completed]="orderForm.valid">
 
-                        <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
+                    <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
-                        <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
+                    <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
 
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Imię i nazwisko *"  formControlName="nameFormControl" [errorStateMatcher]="matcher" [(ngModel)]="order.nameLastname">
-                                <mat-error *ngIf="firstFormGroup.get('nameFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                            </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Imię i nazwisko *" formControlName="nameFormControl"
+                                   [errorStateMatcher]="matcher" [(ngModel)]="order.nameLastname">
+                            <mat-error *ngIf="firstFormGroup.get('nameFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                        </mat-form-field>
 
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Ulica i numer domu / lokalu *"  formControlName="addressFormControl" [errorStateMatcher]="matcher"[(ngModel)]="order.address" >
-                                <mat-error *ngIf="firstFormGroup.get('addressFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                            </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Ulica i numer domu / lokalu *"
+                                   formControlName="addressFormControl" [errorStateMatcher]="matcher"
+                                   [(ngModel)]="order.address">
+                            <mat-error *ngIf="firstFormGroup.get('addressFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                        </mat-form-field>
 
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Kod pocztowy *"  formControlName="zipFormControl" [errorStateMatcher]="matcher" [(ngModel)]="order.zipCode" >
-                                <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                                <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.pattern">
-                                    Niepoprawny format kodu pocztowego. Prawidłowy format np:  01-355
-                                </mat-error>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Kod pocztowy *" formControlName="zipFormControl"
+                                   [errorStateMatcher]="matcher" [(ngModel)]="order.zipCode">
+                            <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                            <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.pattern">
+                                Niepoprawny format kodu pocztowego. Prawidłowy format np: 01-355
+                            </mat-error>
 
-                            </mat-form-field>
-
-
-
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Miejscowość *"  formControlName="cityFormControl" [errorStateMatcher]="matcher"  [(ngModel)]="order.city">
-                                <mat-error *ngIf="firstFormGroup.get('cityFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Telefon *"  formControlName="phoneFormControl" [errorStateMatcher]="matcher"[(ngModel)]="order.phone" >
-                                <mat-error *ngIf="firstFormGroup.get('phoneFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field class="full-width">
-                                <input  matInput placeholder="Email *"  formControlName="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="order.email" >
-                                <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.required">
-                                    To pole jest wymagane
-                                </mat-error>
-                                <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.email">
-                                    email jest nie poprawny
-                                </mat-error>
-                            </mat-form-field>
+                        </mat-form-field>
 
 
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Miejscowość *" formControlName="cityFormControl"
+                                   [errorStateMatcher]="matcher" [(ngModel)]="order.city">
+                            <mat-error *ngIf="firstFormGroup.get('cityFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                        </mat-form-field>
 
-                            <div>
-                                <button  mat-button matStepperPrevious>Back</button>
-                                <button (click)="test(orderForm)" mat-button matStepperNext>Next</button>
-                            </div>
-                        </form>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Telefon *" formControlName="phoneFormControl"
+                                   [errorStateMatcher]="matcher" [(ngModel)]="order.phone">
+                            <mat-error *ngIf="firstFormGroup.get('phoneFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Email *" formControlName="emailFormControl"
+                                   [errorStateMatcher]="matcher" [(ngModel)]="order.email">
+                            <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.required">
+                                To pole jest wymagane
+                            </mat-error>
+                            <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.email">
+                                email jest nie poprawny
+                            </mat-error>
+                        </mat-form-field>
 
 
-
-
-
-
-
-                    </mat-step>
-                    <mat-step [completed]="true">
-                            <ng-template matStepLabel>Dodatkowe inforamcje</ng-template>
-
-                            <div>
-                                <button mat-button matStepperPrevious>Back</button>
-                                <button mat-button matStepperNext>Next</button>
-                            </div>
-                    </mat-step>
-                    <mat-step [completed]="false">
-                        <ng-template matStepLabel>Podsumowanie</ng-template>
-                        Podsumowanie , wyslij zamowienie
                         <div>
-
-                            <button mat-button (click)="saveOrder()">Wyślij</button>
                             <button mat-button matStepperPrevious>Back</button>
-                            <button mat-button (click)="stepper.reset()">Reset</button>
+                            <button (click)="test(orderForm)" mat-button matStepperNext>Next</button>
                         </div>
-                    </mat-step>
-                </mat-horizontal-stepper>
-            </div>
+                    </form>
+
+
+                </mat-step>
+                <mat-step [completed]="true">
+                    <ng-template matStepLabel>Dodatkowe inforamcje</ng-template>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [completed]="false">
+                    <ng-template matStepLabel>Podsumowanie</ng-template>
+                    Podsumowanie , wyslij zamowienie
+                    <div>
+
+                        <button mat-button (click)="saveOrder()">Wyślij</button>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
         </div>
 
 
-    </div>
 
 
-    <!---->
-    <!--<router-outlet></router-outlet>-->
-    <!--<p-toast [baseZIndex]="999999" position="top-right"></p-toast>-->
-    <!--<div *ngIf="spinerService.showSpinner" class="spinner_overlay">-->
-    <!--<p-progressSpinner strokeWidth="5"></p-progressSpinner>-->
-    <!--</div>-->
-</div>
+
+
 
 <app-basket></app-basket>

@@ -40,4 +40,7 @@ export class UserService {
     }
 
 
+    resetPassword(email: string) {
+        return this.http.get(this.baseUrl+`/program_users/resetpassword/${email}`)
+    }
 }
