@@ -125,10 +125,10 @@ export class ProductPickerComponent implements OnInit {
         $('#icco').css('transform', 'translate(-30px, 0px)');
 
         setTimeout(() => {
-            $('#icco').css('transform', 'scale(1.2)');    ;
+            $('#icco').css('transform', 'scale(1.2)');
         }, 200);
          setTimeout(() => {
-             $('#icco').css('transform', 'scale(1)');    ;
+             $('#icco').css('transform', 'scale(1)');
          }, 400);
     }
 }

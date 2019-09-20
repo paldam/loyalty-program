@@ -233,6 +233,26 @@ h1 {
     }
 
 }
+@media screen and (max-width: 1100px) {
+    .removable-col2{
+        display:inline-block;
+    }
+
+}
+
+@media screen and (min-width: 1101px) {
+    .removable-col2{
+        display:none;
+    }
+
+}
+
+.small-scren-points{
+    position: absolute;
+    right: 30px;
+}
+
+
 
 .btnn{
     margin-left: 10px;
@@ -250,3 +270,4 @@ h1 {
 #icco{
     transition: transform 200ms;
 }
+

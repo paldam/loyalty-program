@@ -41,6 +41,13 @@
                                     </div>
 
                                 </div>
+
+                                <div class="removable-col2 small-scren-points">
+
+                                    Posiadasz <span class="filter-value">{{userService.userPkt}}</span> punktów
+                                </div>
+
+
                                 <div class="col-md-6 removable-col">
                                     <div class="price-sort-div">
                                         <span>Zakres od: <span class="filter-value">{{rangeValues[0]}}</span>  punktów do   <span class="filter-value"> {{rangeValues[1]}}</span>  punktów </span>
@@ -72,9 +79,15 @@
 
                                 </div>
                                 <p-footer>
-                                    <i  [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
-                                       class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
-                                       (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
+
+                                        <i  [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
+                                            class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
+                                            (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
+
+
+
+
+
                                     <div class="points icon-grey">{{i.pkt}} punktów</div>
 
                                 </p-footer>
