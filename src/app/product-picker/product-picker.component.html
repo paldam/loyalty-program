@@ -25,28 +25,38 @@
                     <div class="step1 ">
 
 
-                        <div class="sorting_section">
 
 
-                            <div class="price-sort-div">
-                                <span>Zakres od: {{rangeValues[0] + ' punktów do  ' + rangeValues[1]+ ' punktów'}} </span>
-                                <p-slider class="slider" *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues"
-                                          [style]="{'width':'14em'}"
-                                          [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]" [step]="100"
-                                          (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
+
+                            <div class=" sorting_section row">
+                                <div class="col-md-6">
+                                    <div class="sortdiv">
+                                        <span> Sortuj: </span>
+                                        <button type="button" class="btn btn-secondary btnn" (click)="sortBasketASC()">
+                                            Rosnąco  <i class="fa fa-angle-double-up icon-yellow" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btnn" (click)="sortBasketDESC()">
+                                            Malejąco  <i class="fa fa-angle-double-down icon-yellow" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 removable-col">
+                                    <div class="price-sort-div">
+                                        <span>Zakres od: <span class="filter-value">{{rangeValues[0]}}</span>  punktów do   <span class="filter-value"> {{rangeValues[1]}}</span>  punktów </span>
+                                        <p-slider class="slider" *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues"
+                                                  [style]="{'width':'14em'}"
+                                                  [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]"
+                                                  [step]="100"
+                                                  (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="sortdiv">
-                                <span> Sortuj: </span>
-                                <button type="button" class="btn btn-secondary" (click)="sortBasketASC()">Rosnąco
-                                </button>
-                                <button type="button" class="btn btn-secondary" (click)="sortBasketDESC()">
-                                    Malejąco
-                                </button>
-                            </div>
 
 
-                        </div>
+
+
 
 
                         <div class="card_section">
@@ -62,9 +72,9 @@
 
                                 </div>
                                 <p-footer>
-                                    <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
+                                    <i  [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
                                        class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
-                                       (click)="basketService.addPrizeToBasket(i)"></i>
+                                       (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
                                     <div class="points icon-grey">{{i.pkt}} punktów</div>
 
                                 </p-footer>

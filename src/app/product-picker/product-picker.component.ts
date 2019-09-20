@@ -11,7 +11,10 @@ import {PrizeOrder} from '../model/prize-order.model';
 import {AuthenticationService} from '../auth.service';
 import {SpinerService} from '../spiner.service';
 
+declare var jquery: any;
+declare var $: any;
 @Component({
+
     selector: 'app-product-picker',
     templateUrl: './product-picker.component.html',
     styleUrls: ['./product-picker.component.css'],
@@ -115,5 +118,17 @@ export class ProductPickerComponent implements OnInit {
         this.prizesfiltered = this.prizes.filter((prize: Prize) => {
             return prize.pkt >= a && prize.pkt <= b;
         });
+    }
+
+    animateBasket() {
+
+        $('#icco').css('transform', 'translate(-30px, 0px)');
+
+        setTimeout(() => {
+            $('#icco').css('transform', 'scale(1.2)');    ;
+        }, 200);
+         setTimeout(() => {
+             $('#icco').css('transform', 'scale(1)');    ;
+         }, 400);
     }
 }
