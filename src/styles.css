@@ -5,6 +5,9 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 
+body{
+    font-family: 'Oswald', sans-serif;
+}
 
 .ui-progress-spinner{
 
@@ -29,3 +32,15 @@
     z-index: 99999;
 }
 
+body .ui-button{
+    background-color: #2d426d;
+    border-color: #2d426d;
+}
+body .ui-inputtext{
+    padding: 2px;
+    text-align: center;
+}
+
+.mat-form-field{
+    font-family: 'Oswald', sans-serif;
+}

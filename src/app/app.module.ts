@@ -21,11 +21,10 @@ import {PrizeService} from './product-picker/prize-service';
 import {TokenInterceptor} from './token.interceptor';
 import {AuthenticationService} from './auth.service';
 import {SliderModule} from 'primeng/slider';
-import { BasketComponent } from './basket/basket.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './guard/auth.guard';
 import {routing} from './app.routing';
-import {DialogModule, MessageService, OverlayPanelModule, PanelModule, ProgressSpinnerModule} from 'primeng/primeng';
+import {DialogModule, MessageService, OverlayPanelModule, PanelModule, ProgressSpinnerModule, SpinnerModule} from 'primeng/primeng';
 import {MessageServiceExt} from './messages/messageServiceExt';
 import {ToastModule} from 'primeng/toast';
 import {MainmanuComponent} from './mainmanu/mainmanu.component';
@@ -37,7 +36,6 @@ import {MainmanuComponent} from './mainmanu/mainmanu.component';
     AppComponent,
       LoginComponent,
     ProductPickerComponent,
-    BasketComponent,
       MainmanuComponent
   ],
   imports: [
@@ -58,7 +56,8 @@ import {MainmanuComponent} from './mainmanu/mainmanu.component';
       OverlayPanelModule,
       DialogModule,
       PanelModule,
-      ToastModule
+      ToastModule,
+      SpinnerModule
 
   ],
   providers: [

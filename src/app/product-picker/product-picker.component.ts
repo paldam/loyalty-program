@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Prize} from '../model/prize';
 import {PrizeService} from './prize-service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -10,6 +10,9 @@ import {MyErrorStateMatcher} from '../my-error-state-matcher';
 import {PrizeOrder} from '../model/prize-order.model';
 import {AuthenticationService} from '../auth.service';
 import {SpinerService} from '../spiner.service';
+import {MatStepper} from '@angular/material';
+import {PrizeOrderItems} from '../model/prize-order-items';
+
 
 declare var jquery: any;
 declare var $: any;
@@ -29,6 +32,9 @@ export class ProductPickerComponent implements OnInit {
     public rangeValues: number[] = [0, 0];
     public rangeConst: number[] = [0, 0];
     public prizesfiltered: any[] = [];
+    public clickNavNumber: number = 0;
+    public isBasketVisable: boolean = false;
+    @ViewChild('stepper',{static: false}) stepper: MatStepper;
 
     constructor(private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
         this.setUserPoints();
@@ -130,5 +136,74 @@ export class ProductPickerComponent implements OnInit {
          setTimeout(() => {
              $('#icco').css('transform', 'scale(1)');
          }, 400);
+    }
+
+    getBadgeStyle(): string {
+        if (this.basketService.basketLines.length == 0) {
+            return 'badge';
+        } else if (this.basketService.basketLines.length <= 9) {
+            return 'badge1';
+        } else if (this.basketService.basketLines.length > 9)
+            return 'badge2';
+    }
+
+
+
+
+
+    checkWeatherHideBasket(){
+        if(this.basketService.basketLines.length == 0){
+            this.slidNav();
+            this.stepper.selectedIndex = 0;
+        }
+
+    }
+
+    deleteLine(basket : PrizeOrderItems){
+
+     this.basketService.deleteLine(basket);
+
+
+    }
+
+    updateQuantity(basketLine: PrizeOrderItems, quantity: any) {
+
+        this.basketService.updateQuantity(basketLine,quantity);
+
+
+        if(this.basketService.basketLines.length == 0){
+
+            this.slidNav();
+            this.stepper.selectedIndex = 0;
+        }
+
+    }
+
+
+    slidNav() {
+        if (this.clickNavNumber % 2 == 0) {
+            // $('#menu_slide_icon').addClass('fa-rotate-180');
+            $('#basket_cont').css('width', '400px');
+            // $('#main').css('marginLeft', '0px');
+            // $('#black').removeClass('black_background');
+            this.clickNavNumber += 1;
+        } else {
+            // $('#menu_slide_icon').removeClass('fa-rotate-180');
+            if ($(window).width() > 650) {
+                $('#basket_cont').css('width', '0px');
+                // $('#main').css('marginLeft', '190px');
+            } else {
+                $('#basket_cont').css('width', '0px');
+                // $('#main').css('marginLeft', '0px');
+                // $('#black').addClass('black_background');
+            }
+            this.clickNavNumber += 1;
+        }
+    }
+
+
+    goForward(stepper: MatStepper){
+        stepper.next();
+        this.slidNav();
     }
 }

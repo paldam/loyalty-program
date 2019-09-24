@@ -20,7 +20,7 @@
                     <mat-icon>done</mat-icon>
                 </ng-template>
 
-                <mat-step [completed]="basketService.basketLines.length >0">
+                <mat-step [completed]="basketService.basketLines.length >0 && basketService.basketTotalPkt <= userService.userPkt && basketService.basketTotalPkt">
                     <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
                     <div class="step1 ">
 
@@ -42,11 +42,11 @@
 
                                 </div>
 
-                                <div class="removable-col2 small-scren-points">
-
-                                    Posiadasz <span class="filter-value">{{userService.userPkt}}</span> punktów
+                                <div class="col-md-6 removable-col2">
+                                    <div class="removable-col2 small-scren-points col-md-6 ">
+                                        Posiadasz <span class="filter-value">{{userService.userPkt}}</span> punktów
+                                    </div>
                                 </div>
-
 
                                 <div class="col-md-6 removable-col">
                                     <div class="price-sort-div">
@@ -61,38 +61,35 @@
                             </div>
 
 
+                        <div class="row">
+                            <div class="card_section">
+
+                                <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}"
+                                        [style]="{width: '360px'}">
+                                    <p-header>
+                                        <img src="http://www.kosze.waw.pl/images/prizes/{{i.id}}.jpg" width="200"
+                                             height="200">
+                                    </p-header>
+                                    <div class="scrollbar scrollbar-pink">{{i.description}}
 
 
+                                    </div>
+                                    <p-footer>
+
+                                        <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
+                                           class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
+                                           (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
 
 
+                                        <div class="points icon-grey">{{i.pkt}} punktów</div>
 
-                        <div class="card_section">
-
-                            <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}"
-                                    [style]="{width: '360px'}">
-                                <p-header>
-                                    <img src="http://www.kosze.waw.pl/images/prizes/{{i.id}}.jpg" width="200"
-                                         height="200">
-                                </p-header>
-                                <div class="scrollbar scrollbar-pink">{{i.description}}
-
-
-                                </div>
-                                <p-footer>
-
-                                        <i  [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
-                                            class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
-                                            (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
-
-
-
-
-
-                                    <div class="points icon-grey">{{i.pkt}} punktów</div>
-
-                                </p-footer>
-                            </p-card>
+                                    </p-footer>
+                                </p-card>
+                            </div>
+                            >
                         </div>
+
+
                     </div>
                 </mat-step>
                 <mat-step [completed]="orderForm.valid">
@@ -159,9 +156,9 @@
                         </mat-form-field>
 
 
-                        <div>
-                            <button mat-button matStepperPrevious>Back</button>
-                            <button (click)="test(orderForm)" mat-button matStepperNext>Next</button>
+                        <div class="control-group">
+                            <button class="control-button" mat-button matStepperPrevious>Cofnij</button>
+                            <button class="control-button" (click)="test(orderForm)" mat-button matStepperNext>Idz dalej</button>
                         </div>
                     </form>
 
@@ -191,7 +188,54 @@
 
 
 
+<div  id="basket_cont" class="basket_cont">
+
+    <div id="icco" class="bask_ico" (click)="slidNav()">
+        <img src="http://www.kosze.waw.pl/images/icon/shop_bask_ico.png" width="60" height="60" class="bask_png">
+        <span [class]="getBadgeStyle()">{{basketService.basketLines.length}}</span>
+    </div>
 
 
+    <div class="basket_int">
 
-<app-basket></app-basket>
+        <div class="basket_head">
+            <span class="b_head_1">Prezent</span>
+            <span class="b_head_2">Ilość</span>
+            <span class="b_head_3">Pkt.</span>
+
+        </div>
+
+
+        <div *ngFor="let basketLine of basketService.basketLines">
+
+            <table class="basket-tab">
+                <tr>
+                    <td class="coltab1">{{basketLine.prize.name}}</td>
+                    <td class="coltab2">
+                        <p-spinner size="1" [(ngModel)]="basketLine.quantity"
+                                   (onChange)="updateQuantity(basketLine,basketLine.quantity)" [min]="0"></p-spinner>
+                    </td>
+                    <td class="coltab3">{{basketLine.prize.pkt}}</td>
+                    <td class="coltab4"><i class="fa fa-times del_row"
+                                           (click)="deleteLine(basketLine);checkWeatherHideBasket()"
+                                           aria-hidden="true"></i></td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div class="basket_error" *ngIf="basketService.basketTotalPkt > userService.userPkt"> Brak punktów</div>
+
+
+        <div *ngIf="basketService.basketLines.length >0" class="basket_fot"> Suma:  {{basketService.basketTotalPkt}}
+        </div>
+
+        <div *ngIf="basketService.basketTotalPkt <= userService.userPkt && basketService.basketTotalPkt > 0 "
+             (click)="goForward(stepper)" class="cfs"> Idz dalej
+        </div>
+
+
+    </div>
+
+
+</div>

@@ -47,7 +47,10 @@ export class BasketService {
         this.recalculate()
     }
 
-    updateQuantity(basketLine: PrizeOrderItems, quantity: number) {
+    updateQuantity(basketLine: PrizeOrderItems, quantity: any) {
+
+        console.log(quantity);
+
         if (quantity == 0) {
             this.deleteLine(basketLine);
         }
@@ -64,18 +67,16 @@ export class BasketService {
 
         if(this.basketTotalPkt> this.userService.userPkt){
 
-             console.log("BRAK PUNKTów 2222222"); //TODO);
 
-            console.log(line);
-            console.log(curentLineQuantity);
             line.quantity = curentLineQuantity;
             this.recalculate();
         }
 
 
-
-
     }
+
+
+
 
 
 
