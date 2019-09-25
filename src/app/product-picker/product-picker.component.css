@@ -457,6 +457,22 @@ h1 {
     font-size: 15px;
 }
 
+.basket_none{
+    position: relative;
+    left: 90px;
+    margin-top: 22px;
+    padding-top: 5px;
+    width: 220px;
+    height: 30px;
+    background-color:#fead04;
+    border-radius: 9px;
+    color: #495057;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
 .cfs{
     margin-top: 15px;
     color: white;

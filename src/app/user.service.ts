@@ -21,7 +21,7 @@ export class UserService {
 
     constructor(private http: HttpClient,private router: Router) {
 
-        this.baseUrl = `${this.protocol}://${location.hostname}:${this.port}`;
+        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
 
     }
 

@@ -5,6 +5,7 @@ import {SpinerService} from "../spiner.service";
 import {Event} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../user.service';
+import {AuthenticationService} from '../auth.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import {UserService} from '../user.service';
 export class AppComponent  implements OnInit {
     title = 'app';
 
-    constructor(private _formBuilder: FormBuilder, public userService: UserService, routingState: RoutingState, public spinerService: SpinerService, public router: Router) {
+    constructor(private _formBuilder: FormBuilder,public authenticationService : AuthenticationService, public userService: UserService, public routingState: RoutingState, public spinerService: SpinerService, public router: Router) {
         routingState.loadRouting();
         this.router.events.subscribe((event: Event) => {
             switch (true) {

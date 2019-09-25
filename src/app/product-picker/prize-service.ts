@@ -12,7 +12,7 @@ export class PrizeService {
     public baseUrl: string;
 
     public constructor(private http: HttpClient) {
-        this.baseUrl = `${this.protocol}://${location.hostname}:${this.port}`;
+        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
     }
 
     getPrize(){

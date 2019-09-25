@@ -22,7 +22,7 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient,private router: Router, private basketService :BasketService) {
 
-        this.baseUrl = `${this.protocol}://${location.hostname}:${this.port}`;
+        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
 
         // set token if saved in local storage
         this.id_token = localStorage.getItem(TOKEN);
@@ -59,6 +59,7 @@ export class AuthenticationService {
 
 
     logout(): void {
+        console.log("Wylogowano");
         this.id_token = null;
         localStorage.removeItem(TOKEN);
         localStorage.removeItem(TOKEN_USER);

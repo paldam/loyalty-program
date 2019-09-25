@@ -86,7 +86,7 @@
                                     </p-footer>
                                 </p-card>
                             </div>
-                            >
+
                         </div>
 
 
@@ -158,7 +158,7 @@
 
                         <div class="control-group">
                             <button class="control-button" mat-button matStepperPrevious>Cofnij</button>
-                            <button class="control-button" (click)="test(orderForm)" mat-button matStepperNext>Idz dalej</button>
+                            <button class="control-button"  mat-button matStepperNext>Idz dalej</button>
                         </div>
                     </form>
 
@@ -224,6 +224,7 @@
 
 
         </div>
+        <div class="basket_none" *ngIf="basketService.basketLines.length == 0"> Zawartość kosza jest pusta</div>
         <div class="basket_error" *ngIf="basketService.basketTotalPkt > userService.userPkt"> Brak punktów</div>
 
 
