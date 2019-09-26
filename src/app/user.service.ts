@@ -25,7 +25,7 @@ export class UserService {
     }
 
 
-    getCurrentUserPoints(){
+    public getCurrentUserPoints(){
         return this.http.get(this.baseUrl+`/current_user_points`);
     }
 

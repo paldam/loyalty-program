@@ -441,6 +441,20 @@ h1 {
     margin-top: 20px;
 }
 
+.basket_sum_prize_footer{
+    float: right;
+
+    height: 30px;
+    width: 250px;
+    background: -webkit-linear-gradient(#2d426d, #2f506d);
+    border-radius: 9px;
+    color:white;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 .basket_summary_cont{
 }
 
@@ -592,7 +606,7 @@ h1 {
 
 .sum_head_title{
     position: relative;
-    top: 2px
+    top: 2px;
 }
 
 .summ_button{
@@ -621,4 +635,11 @@ h1 {
 
 .fas-r{
     padding: 0px 0px 0px 10px;
+}
+
+.opi{
+    color: #f5ad59;
+}
+.form-control[readonly]{
+    background-color: white;
 }

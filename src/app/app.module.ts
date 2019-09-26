@@ -57,7 +57,7 @@ import {MainmanuComponent} from './mainmanu/mainmanu.component';
       DialogModule,
       PanelModule,
       ToastModule,
-      SpinnerModule
+      SpinnerModule,
 
   ],
   providers: [

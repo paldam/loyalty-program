@@ -92,8 +92,8 @@
 
                     </div>
                 </mat-step>
-                <!--<mat-step [completed]="orderForm.valid">-->
-                    <mat-step [completed]="true">
+                <mat-step [completed]="true">
+                    <!--<mat-step [completed]="orderForm.valid">-->
                     <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
                     <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
@@ -164,7 +164,8 @@
 
 
                 </mat-step>
-                <mat-step [completed]="true">
+
+                <mat-step [completed]="orderSubmit">
                     <ng-template matStepLabel>Podsumowanie</ng-template>
 
 
@@ -187,15 +188,30 @@
                                                           height="100"></td>
                             <td class="coltab-sum-1 ">{{basketLine.prize.name}}</td>
                             <td class="coltab-sum-2 ">
-                                <p-spinner size="1" [(ngModel)]="basketLine.quantity"
+                                <p-spinner size="1" [(ngModel)]="basketLine.quantity" readonly="true"
                                            (onChange)="updateQuantity(basketLine,basketLine.quantity)" [min]="0"></p-spinner>
                             </td>
                             <td class="coltab-sum-3 ">{{basketLine.prize.pkt}} pkt.</td>
-                            <td class="coltab-sum-4 gtt"><i class="fa fa-times del_row"
-                                                        (click)="deleteLine(basketLine);checkWeatherHideBasket()"
-                                                        aria-hidden="true"></i></td>
+                            <td class="coltab-sum-4 gtt"></td>
+                            <!--<td class="coltab-sum-4 gtt"><i class="fa fa-times del_row"-->
+                                                        <!--(click)="deleteLine(basketLine);checkWeatherHideBasket()"-->
+                                                        <!--aria-hidden="true"></i></td>-->
                         </tr>
+
+                        <tr>
+                            <td colspan="5">
+                                <div class="basket_sum_prize_footer">
+                                    <div class="sum_head_title"> Suma punktów:   <span class="opi">  {{basketService.basketTotalPkt}}</span> </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
                     </table>
+
+
+
                 </div>
 
 
@@ -217,40 +233,40 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Imię i nazwisko</div>
                                     </div>
-                                    <input type="text" class="form-control" id="name" [(ngModel)]="order.nameLastname">
+                                    <input type="text" class="form-control" readonly id="name" [(ngModel)]="order.nameLastname">
                                 </div>
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Adres</div>
                                     </div>
-                                    <input type="text" class="form-control" id="addr"  [(ngModel)]="order.address">
+                                    <input type="text" class="form-control" readonly id="addr"  [(ngModel)]="order.address">
                                 </div>
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Miasto</div>
                                     </div>
-                                    <input type="text" class="form-control" id="cit"  [(ngModel)]="order.city">
+                                    <input type="text" class="form-control" readonly id="cit"  [(ngModel)]="order.city">
                                 </div>
 
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Kod pocztowy</div>
                                     </div>
-                                    <input type="text" class="form-control" id="zip"  [(ngModel)]="order.zipCode">
+                                    <input type="text" class="form-control"readonly  id="zip"  [(ngModel)]="order.zipCode">
                                 </div>
 
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Telefon</div>
                                     </div>
-                                    <input type="text" class="form-control" id="phone"  [(ngModel)]="order.phone">
+                                    <input type="text" class="form-control" readonly id="phone"  [(ngModel)]="order.phone">
                                 </div>
 
                                 <div class="input-group gtt gttt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Email</div>
                                     </div>
-                                    <input type="text" class="form-control" id="email"  [(ngModel)]="order.email">
+                                    <input type="text" class="form-control" readonly id="email"  [(ngModel)]="order.email">
                                 </div>
 
 
@@ -264,25 +280,23 @@
 
 
 
-
-
-
-
-
-
                     <div class="summ_button_group">
                         <button class="control-button summ_button" mat-button matStepperPrevious><i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij </button>
-                        <button class="control-button summ_button"  mat-button matStepperNext>Zamów <i class="fa fa-check fas-r" aria-hidden="true"></i></button>
+                        <button class="control-button summ_button" mat-button (click)="saveOrder()">Zamów <i class="fa fa-check fas-r" aria-hidden="true"></i></button>
                     </div>
+
+
+
+
                 </mat-step>
                 <mat-step [completed]="false">
                     <ng-template matStepLabel>Koniec</ng-template>
-                    Podsumowanie , wyslij zamowienie
+                        Twoje zamówienie zostało zrealizowane, Na maila podanego w zamówieniu zostało wysłane potwierdzenie.
                     <div>
 
-                        <button mat-button (click)="saveOrder()">Wyślij</button>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button (click)="stepper.reset()">Reset</button>
+                        <!--<button mat-button (click)="saveOrder()">Wyślij</button>-->
+                        <!--<button mat-button matStepperPrevious>Back</button>-->
+                        <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

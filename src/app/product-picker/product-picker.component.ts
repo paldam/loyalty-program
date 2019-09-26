@@ -12,6 +12,7 @@ import {AuthenticationService} from '../auth.service';
 import {SpinerService} from '../spiner.service';
 import {MatStepper} from '@angular/material';
 import {PrizeOrderItems} from '../model/prize-order-items';
+import {MessageServiceExt} from '../messages/messageServiceExt';
 
 
 declare var jquery: any;
@@ -32,11 +33,14 @@ export class ProductPickerComponent implements OnInit {
     public rangeValues: number[] = [0, 0];
     public rangeConst: number[] = [0, 0];
     public prizesfiltered: any[] = [];
+    public orderSubmit: boolean = false;
     public clickNavNumber: number = 0;
     public isBasketVisable: boolean = false;
     @ViewChild('stepper',{static: false}) stepper: MatStepper;
+    @ViewChild('orderForm',{static: false}) orderForm: NgForm;
 
-    constructor(private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
+
+    constructor(public messageServiceExt :MessageServiceExt,private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
         this.setUserPoints();
         this.setPrizeFilter();
     }
@@ -103,13 +107,25 @@ export class ProductPickerComponent implements OnInit {
     }
 
     saveOrder() {
+        this.orderSubmit = true;
         this.order.prizeOrderItems = this.basketService.basketLines;
         this.order.orderTotalAmount = this.basketService.basketTotalPkt;
         this.prizeService.saveOrder(this.order).subscribe(value => {
-            console.log(value);
         }, error => {
-            console.log(error);
+            if (error.status == 406) {
+                this.messageServiceExt.addMessage('error', 'Błąd ', 'Brak wystarczajacej ilości punktów');
+            } else {
+                this.messageServiceExt.addMessage('error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
+            }
+            this.setUserPoints();
+            this.stepper.selectedIndex = 0;
         }, () => {
+            this.stepper.selectedIndex = 3;
+            this.order = new PrizeOrder();
+            this.basketService.basketTotalPkt = 0;
+            this.basketService.basketLines = [];
+            this.setUserPoints();
+            this.orderSubmit = false;
         });
     }
 
