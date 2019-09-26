@@ -1,13 +1,3 @@
-<!--<button (click)="authenticationService.logout()" class="btn btn-primary">Wyloguj</button>-->
-
-<!--<span>TWOJE PUKTY :  {{userService.userPkt}}</span>-->
-
-
-
-
-
-
-
 
 
         <div class="steper ">
@@ -165,7 +155,8 @@
 
                 </mat-step>
 
-                <mat-step [completed]="orderSubmit">
+                <!--<mat-step [completed]="orderSubmit">-->
+                    <mat-step [completed]="true">
                     <ng-template matStepLabel>Podsumowanie</ng-template>
 
 
@@ -286,18 +277,66 @@
                     </div>
 
 
-
-
-                </mat-step>
-                <mat-step [completed]="false">
+                    </mat-step>
+                <!--<mat-step [completed]="false">-->
+                <mat-step [completed]="true">
                     <ng-template matStepLabel>Koniec</ng-template>
-                        Twoje zamówienie zostało zrealizowane, Na maila podanego w zamówieniu zostało wysłane potwierdzenie.
-                    <div>
 
-                        <!--<button mat-button (click)="saveOrder()">Wyślij</button>-->
-                        <!--<button mat-button matStepperPrevious>Back</button>-->
-                        <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
+                    <div class="order_info">
+                        Twoje zamówienie zostało zrealizowane, Na maila podanego w zamówieniu zostało wysłane
+                        potwierdzenie.
                     </div>
+
+
+                    <div class="menu-card-cont" >
+                        <div class="row ">
+                            <div class="menu_card">
+                                <div class="menu_card_up">
+                                    <i class="fas fa-home fa-2x"></i>
+                                </div>
+                                <div class="menu_card_down">
+                                    Menu główne
+                                </div>
+                            </div>
+
+
+
+                            <div class="menu_card">
+                                <div class="menu_card_up">
+                                    <i class="fas fa-align-justify fa-2x"></i>
+                                </div>
+                                <div class="menu_card_down">
+                                    Twoje zamówienia
+                                </div>
+                            </div>
+
+                            <div class="menu_card">
+                                <div class="menu_card_up">
+                                    <i class="fas fa-book fa-2x"></i>
+                                </div>
+                                <div class="menu_card_down">
+                                    Historia punktów
+                                </div>
+                            </div>
+
+                            <div class="menu_card" (click)="authenticationService.logout()">
+                                <div class="menu_card_up">
+                                    <i class="fas fa-door-open fa-2x"></i>
+                                </div>
+                                <div class="menu_card_down">
+                                    Wyloguj
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
                 </mat-step>
             </mat-horizontal-stepper>
         </div>

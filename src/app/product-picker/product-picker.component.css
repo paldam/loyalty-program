@@ -643,3 +643,44 @@ h1 {
 .form-control[readonly]{
     background-color: white;
 }
+
+.order_info{
+    background-color: #92c774;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 30px;
+}
+
+.menu_card{
+    width: 145px;
+    height: 120px;
+    background-color:white;
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    box-shadow:
+            0 3px 5px 0 rgba(0, 0, 0, 0.2),
+            0 3px 3px 0 rgba(0, 0, 0, 0.14),
+            0 4px 3px -1px rgba(0, 0, 0, 0.12) ;
+
+    border-top: 1px rgba(18,10,20,0.18) solid;
+    color: #2D426D;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+}
+
+.menu_card:hover{
+    color: #F5841F;
+}
+.menu-card-cont{
+    text-align: center;
+    margin: 0 auto;
+    max-width: 700px;
+}
+.menu_card_up{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
