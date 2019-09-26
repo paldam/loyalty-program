@@ -49,8 +49,7 @@ export class LoginComponent implements OnInit {
                             this.loading = false;
                             this.showChangePassworModal = true;
                         } else {
-
-                            this.router.navigate(['/']);
+                            this.router.navigate(['menu']);
                         }
                     });
 

@@ -82,8 +82,7 @@
 
                     </div>
                 </mat-step>
-                <mat-step [completed]="true">
-                    <!--<mat-step [completed]="orderForm.valid">-->
+                    <mat-step [completed]="orderForm.valid">
                     <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
                     <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
@@ -155,8 +154,8 @@
 
                 </mat-step>
 
-                <!--<mat-step [completed]="orderSubmit">-->
-                    <mat-step [completed]="true">
+                <mat-step [completed]="orderSubmit">
+
                     <ng-template matStepLabel>Podsumowanie</ng-template>
 
 
@@ -278,8 +277,7 @@
 
 
                     </mat-step>
-                <!--<mat-step [completed]="false">-->
-                <mat-step [completed]="true">
+                <mat-step [completed]="false">
                     <ng-template matStepLabel>Koniec</ng-template>
 
                     <div class="order_info">
@@ -290,7 +288,7 @@
 
                     <div class="menu-card-cont" >
                         <div class="row ">
-                            <div class="menu_card">
+                            <div class="menu_card" (click)=" router.navigate(['menu'])" >
                                 <div class="menu_card_up">
                                     <i class="fas fa-home fa-2x"></i>
                                 </div>
@@ -318,6 +316,7 @@
                                     Historia punktów
                                 </div>
                             </div>
+
 
                             <div class="menu_card" (click)="authenticationService.logout()">
                                 <div class="menu_card_up">

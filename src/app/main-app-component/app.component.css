@@ -113,7 +113,7 @@ body {
 }
 .tel{
     position: absolute;
-    top: 53px;
+    top: 68px;
     right: 20px;
     font-family: 'Alfa Slab One', cursive;
     background: -webkit-linear-gradient(#283a68, #2d426d);
@@ -124,7 +124,7 @@ body {
 
 .tex{
     position: absolute;
-    top: 30px;
+    top: 45px;
     right: 20px;
     font-family: 'Alfa Slab One', cursive;
     background: -webkit-linear-gradient(#e7b20a, #ffb109);
@@ -147,4 +147,32 @@ body {
 
 .account :hover{
    cursor: pointer;
+}
+
+.logout_top_nav{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: #2D426D;
+    cursor: pointer;
+}
+.home_top_nav{
+    position: absolute;
+    right: 50px;
+    top: 10px;
+    color: #2D426D;
+    cursor: pointer;
+}
+
+.logout_top_nav:hover{
+    color: #FFB109;
+}
+
+.home_top_nav:hover{
+    color: #FFB109;
+}
+
+.top_nav_icon_gropup{
+    background-color: #92c774;
+    z-index: 101;
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {UserService} from '../user.service';
+import {AuthenticationService} from '../auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-mainmanu',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainmanuComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userService :UserService,public  authenticationService :AuthenticationService,public router: Router) {
+
+  }
 
   ngOnInit() {
   }

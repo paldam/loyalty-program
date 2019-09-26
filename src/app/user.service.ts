@@ -6,7 +6,7 @@ import {TOKEN} from './auth.service';
 import {PasswordChange} from './model/password_change.model';
 import {Observable} from 'rxjs';
 import {AppConstans} from './constans';
-
+export const TOKEN_USER: string = 'jwt_token_user';
 @Injectable({
     providedIn: 'root',
 })
@@ -21,6 +21,7 @@ export class UserService {
     constructor(private http: HttpClient,private router: Router) {
 
         this.baseUrl = AppConstans.SERVERURL;
+        this.id_token = localStorage.getItem(TOKEN_USER);
 
     }
 
@@ -42,4 +43,10 @@ export class UserService {
     resetPassword(email: string) {
         return this.http.get(this.baseUrl+`/program_users/resetpassword/${email}`)
     }
+
+    getUserName():string{
+        return this.id_token;
+    }
+
+
 }

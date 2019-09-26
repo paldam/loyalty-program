@@ -13,6 +13,7 @@ import {SpinerService} from '../spiner.service';
 import {MatStepper} from '@angular/material';
 import {PrizeOrderItems} from '../model/prize-order-items';
 import {MessageServiceExt} from '../messages/messageServiceExt';
+import {Router} from '@angular/router';
 
 
 declare var jquery: any;
@@ -40,7 +41,7 @@ export class ProductPickerComponent implements OnInit {
     @ViewChild('orderForm',{static: false}) orderForm: NgForm;
 
 
-    constructor(public messageServiceExt :MessageServiceExt,private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
+    constructor(public router: Router,public messageServiceExt :MessageServiceExt,private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
         this.setUserPoints();
         this.setPrizeFilter();
     }

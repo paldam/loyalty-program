@@ -1,1 +1,61 @@
-<p>mainmanu works!</p>
+<div class="greatings">
+
+
+    <div class="wit"> Witaj :  <span class="wit2">{{userService.id_token}}</span></div>
+
+</div>
+
+
+
+<div class="menu-card-cont" >
+    <div class="row ">
+
+
+
+        <div (click)=" router.navigate(['/'])" class="menu_card">
+            <div class="menu_card_up">
+                <i class="fas fa-box-open fa-2x"></i>
+            </div>
+            <div class="menu_card_down">
+                Wybierz prezent
+            </div>
+        </div>
+
+        <div class="menu_card">
+            <div class="menu_card_up">
+                <i class="fas fa-align-justify fa-2x"></i>
+            </div>
+            <div class="menu_card_down">
+                Twoje zamówienia
+            </div>
+        </div>
+
+        <div class="menu_card">
+            <div class="menu_card_up">
+                <i class="fas fa-book fa-2x"></i>
+            </div>
+            <div class="menu_card_down">
+                Historia punktów
+            </div>
+        </div>
+
+        <div class="menu_card">
+            <div class="menu_card_up">
+                <i class="fas fa-key fa-2x"></i>
+            </div>
+            <div class="menu_card_down">
+                Zmień hasło
+            </div>
+        </div>
+
+        <div class="menu_card" (click)="authenticationService.logout()">
+            <div class="menu_card_up">
+                <i class="fas fa-door-open fa-2x"></i>
+            </div>
+            <div class="menu_card_down">
+                Wyloguj
+            </div>
+        </div>
+
+    </div>
+</div>

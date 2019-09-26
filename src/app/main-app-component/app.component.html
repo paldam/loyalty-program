@@ -1,5 +1,12 @@
+
+
+
+
+
+
 <div class="content col-12 ">
     <div class="headd row">
+
 
 
         <div *ngIf='routingState.getCurrentPage().substring(0, 6) != "/login"'>
@@ -14,6 +21,12 @@
             <span class="logo_img"> <img src="http://www.kosze.waw.pl/images/icon/gift2.png" width="65 "
                                          height="65"></span>
             <span class="logo"> Program Lojalnościowy</span>
+        </div>
+
+
+        <div  *ngIf='routingState.getCurrentPage().substring(0, 6) != "/login"'class="top_nav_icon_gropup">
+            <i title="Wyloguj" (click)="authenticationService.logout()" class="fas fa-door-open fa-1x logout_top_nav"></i>
+            <i title="Home"      (click)="router.navigate(['menu'])" class="fas fa-home fa-1x home_top_nav"></i>
         </div>
 
 
