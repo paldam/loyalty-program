@@ -1,4 +1,7 @@
 export class AppConstans {
-    static readonly PROTOCOL: string = "http";
-    static readonly PORT: number = 8080;
+
+    //static readonly SERVERURL: string = 'http://kosze.waw.pl:8080';
+
+    static readonly SERVERURL: string = "http://localhost:8080";
+    //
 }

@@ -3,16 +3,16 @@ import {HttpClient} from '@angular/common/http';
 
 import {Prize} from '../model/prize';
 import {PrizeOrder} from '../model/prize-order.model';
+import {AppConstans} from '../constans';
 
 @Injectable()
 export class PrizeService {
 
-    public protocol: string = "http";
-    public port: number = 8080;
-    public baseUrl: string;
+
+    readonly baseUrl = AppConstans.SERVERURL;
 
     public constructor(private http: HttpClient) {
-        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
+
     }
 
     getPrize(){

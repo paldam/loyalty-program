@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {BasketService} from './basket/basket.service';
 import {TokenInterceptor} from './token.interceptor';
+import {AppConstans} from './constans';
 
 export const TOKEN: string = 'jwt_token';
 export const TOKEN_USER: string = 'jwt_token_user';
@@ -14,15 +15,14 @@ const jwtHelperService = new JwtHelperService();
 @Injectable()
 export class AuthenticationService {
 
-
-    public protocol: string = "http";
-    public port: number = 8080;
-    public baseUrl: string;
+    readonly baseUrl = AppConstans.SERVERURL;
     public id_token: string;
 
     constructor(private http: HttpClient,private router: Router, private basketService :BasketService) {
 
-        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
+
+
+        //this.baseUrl = "http://localhost:8080";
 
         // set token if saved in local storage
         this.id_token = localStorage.getItem(TOKEN);

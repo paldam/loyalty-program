@@ -92,8 +92,8 @@
 
                     </div>
                 </mat-step>
-                <mat-step [completed]="orderForm.valid">
-
+                <!--<mat-step [completed]="orderForm.valid">-->
+                    <mat-step [completed]="true">
                     <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
                     <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
@@ -157,23 +157,126 @@
 
 
                         <div class="control-group">
-                            <button class="control-button" mat-button matStepperPrevious>Cofnij</button>
-                            <button class="control-button"  mat-button matStepperNext>Idz dalej</button>
+                            <button class="control-button" mat-button matStepperPrevious> <i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij</button>
+                            <button class="control-button"  mat-button matStepperNext>Idz dalej <i class="fa fa-arrow-right fas-r" aria-hidden="true"></i></button>
                         </div>
                     </form>
 
 
                 </mat-step>
                 <mat-step [completed]="true">
-                    <ng-template matStepLabel>Dodatkowe inforamcje</ng-template>
+                    <ng-template matStepLabel>Podsumowanie</ng-template>
 
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
+
+
+            <div class="basket_summary_cont row">
+
+                <div class="basket_sum_prize_list col-xl-7">
+
+
+                    <table class="basket-tab-summ">
+                        <tr>
+                            <td colspan="5">
+                                <div class="basket_sum_prize_head">
+                                   <span class="sum_head_title">Zawartość zamówienia:</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let basketLine of basketService.basketLines">
+                            <td class="coltab-sum-0 gtt"><img src="http://www.kosze.waw.pl/images/prizes/{{basketLine.prize.id}}.jpg" width="100"
+                                                          height="100"></td>
+                            <td class="coltab-sum-1 ">{{basketLine.prize.name}}</td>
+                            <td class="coltab-sum-2 ">
+                                <p-spinner size="1" [(ngModel)]="basketLine.quantity"
+                                           (onChange)="updateQuantity(basketLine,basketLine.quantity)" [min]="0"></p-spinner>
+                            </td>
+                            <td class="coltab-sum-3 ">{{basketLine.prize.pkt}} pkt.</td>
+                            <td class="coltab-sum-4 gtt"><i class="fa fa-times del_row"
+                                                        (click)="deleteLine(basketLine);checkWeatherHideBasket()"
+                                                        aria-hidden="true"></i></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+
+                <div class="basket_sum_data col-xl-5">
+
+                    <table class="basket-tab-summ">
+                        <tr>
+                            <td colspan="5">
+                                <div class="basket_sum_prize_head">
+                                    <span class="sum_head_title">Adres Dostawy:</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>
+
+                                <div class="input-group gtt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Imię i nazwisko</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="name" [(ngModel)]="order.nameLastname">
+                                </div>
+                                <div class="input-group gtt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Adres</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="addr"  [(ngModel)]="order.address">
+                                </div>
+                                <div class="input-group gtt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Miasto</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="cit"  [(ngModel)]="order.city">
+                                </div>
+
+                                <div class="input-group gtt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Kod pocztowy</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="zip"  [(ngModel)]="order.zipCode">
+                                </div>
+
+                                <div class="input-group gtt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Telefon</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="phone"  [(ngModel)]="order.phone">
+                                </div>
+
+                                <div class="input-group gtt gttt">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Email</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="email"  [(ngModel)]="order.email">
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+                    <div class="summ_button_group">
+                        <button class="control-button summ_button" mat-button matStepperPrevious><i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij </button>
+                        <button class="control-button summ_button"  mat-button matStepperNext>Zamów <i class="fa fa-check fas-r" aria-hidden="true"></i></button>
                     </div>
                 </mat-step>
                 <mat-step [completed]="false">
-                    <ng-template matStepLabel>Podsumowanie</ng-template>
+                    <ng-template matStepLabel>Koniec</ng-template>
                     Podsumowanie , wyslij zamowienie
                     <div>
 
@@ -188,7 +291,7 @@
 
 
 
-<div  id="basket_cont" class="basket_cont">
+<div *ngIf="stepper.selectedIndex != 2" id="basket_cont" class="basket_cont">
 
     <div id="icco" class="bask_ico" (click)="slidNav()">
         <img src="http://www.kosze.waw.pl/images/icon/shop_bask_ico.png" width="60" height="60" class="bask_png">

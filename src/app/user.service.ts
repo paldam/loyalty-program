@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {TOKEN} from './auth.service';
 import {PasswordChange} from './model/password_change.model';
 import {Observable} from 'rxjs';
+import {AppConstans} from './constans';
 
 @Injectable({
     providedIn: 'root',
@@ -13,15 +14,13 @@ export class UserService {
 
     public userPkt = 0;
 
+    readonly baseUrl = AppConstans.SERVERURL;
 
-    public protocol: string = "http";
-    public port: number = 8080;
-    public baseUrl: string;
     public id_token: string;
 
     constructor(private http: HttpClient,private router: Router) {
 
-        this.baseUrl = `${this.protocol}://www.kosze.waw.pl:${this.port}`;
+        this.baseUrl = AppConstans.SERVERURL;
 
     }
 

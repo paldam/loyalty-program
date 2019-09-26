@@ -45,7 +45,7 @@ export class ProductPickerComponent implements OnInit {
         this.firstFormGroup = new FormGroup({
             'nameFormControl': new FormControl(null, Validators.required),
             'addressFormControl': new FormControl(null, Validators.required),
-            'zipFormControl': new FormControl(null, [Validators.pattern('[0-9]{2}-[0-9]{3}')]),
+            'zipFormControl': new FormControl(null, [Validators.pattern('[0-9]{2}-[0-9]{3}'),Validators.required]),
             'cityFormControl': new FormControl(null, Validators.required),
             'phoneFormControl': new FormControl(null, Validators.required),
             'emailFormControl': new FormControl(null, [Validators.required, Validators.email]),

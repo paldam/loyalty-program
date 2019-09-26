@@ -396,6 +396,67 @@ h1 {
     font-size: 12px;
 }
 
+.basket-tab-summ th, td{
+
+    width: 800px;
+    font-size: 12px;
+}
+
+
+.basket-tab-summ{
+    margin: 0 auto;
+}
+
+.coltab-sum-0{
+    width: 110px;
+    padding: 5px;
+}
+.coltab-sum-1{
+    width: 300px;
+    padding: 5px;
+}
+.coltab-sum-2{
+    width: 60px;
+    padding: 5px;
+}
+.coltab-sum-3{
+    width: 90px;
+    padding: 5px;
+}
+
+.coltab-sum-4{
+    width: 30px;
+    padding: 5px;
+    color: red;
+}
+
+.basket_sum_prize_head{
+    height: 30px;
+    background: -webkit-linear-gradient(#f5841f, #f69624);
+    border-radius: 9px;
+    color:#2d426d ;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.basket_summary_cont{
+}
+
+.basket_sum_data{
+}
+
+.basket_sum_prize_list{
+    text-align: center;
+}
+
+
+
+.coltab1{
+    width: 200px;
+    padding: 5px;
+}
 .coltab1{
     width: 200px;
     padding: 5px;
@@ -513,3 +574,51 @@ h1 {
     text-align: left;
 }
 
+.input-group-text{
+    width: 90px;
+    font-size: 12px;
+    background-color: #2d426d;
+    color: white;
+
+}
+
+.gtt{
+    margin-top: 8px;
+    padding : 0px 25px;
+}
+.gttt{
+    margin-bottom: 100px;
+}
+
+.sum_head_title{
+    position: relative;
+    top: 2px
+}
+
+.summ_button{
+    position: relative;
+    right: 0px;
+    background: -webkit-linear-gradient(#f5841f, #f69624);
+    color: #2d426d;
+
+}
+
+.summ_button_group{
+    position: absolute;
+    right: 25px;
+    bottom: 20px;
+    font-family: 'Oswald', sans-serif;
+
+}
+
+.control-group{
+    font-family: 'Oswald', sans-serif;
+}
+
+.fas-l{
+     padding: 0px 10px 0px 0px;
+ }
+
+.fas-r{
+    padding: 0px 0px 0px 10px;
+}
