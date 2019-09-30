@@ -9,6 +9,11 @@ body{
     font-family: 'Oswald', sans-serif;
 }
 
+.ui-table .ui-table-thead > tr > th {
+    background-color: #283a68 !important;
+    color: white !important;
+}
+
 .ui-progress-spinner{
 
     height: 90px;

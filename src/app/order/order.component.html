@@ -1,0 +1,31 @@
+<div class="orders-view">
+
+
+    <h1 class="order-page-title">
+        Historia zamówień
+    </h1>
+
+
+    <p-table [value]="orders">
+        <ng-template pTemplate="header">
+            <tr class="tab-head" >
+                <th>Numer zamówienia</th>
+                <th>Data zamówienia</th>
+                <th>Punkty</th>
+                <th>Status zamówienia</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-order>
+
+            <tr>
+                <td>{{order.id}}/{{order.orderDate | date: 'yyyy'}}</td>
+                <td>{{order.orderDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{order.orderTotalAmount}} pkt.</td>
+                <td>{{order.prizeOrderStatus.orderStatusName}}</td>
+            </tr>
+
+
+        </ng-template>
+    </p-table>
+</div>

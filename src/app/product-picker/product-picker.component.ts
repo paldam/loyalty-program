@@ -34,7 +34,10 @@ export class ProductPickerComponent implements OnInit {
     public rangeValues: number[] = [0, 0];
     public rangeConst: number[] = [0, 0];
     public prizesfiltered: any[] = [];
+    public regulationsChecked: boolean = false;
     public orderSubmit: boolean = false;
+    public showRegulationModal: boolean = false;
+
     public clickNavNumber: number = 0;
     public isBasketVisable: boolean = false;
     @ViewChild('stepper',{static: false}) stepper: MatStepper;
@@ -109,25 +112,30 @@ export class ProductPickerComponent implements OnInit {
 
     saveOrder() {
         this.orderSubmit = true;
-        this.order.prizeOrderItems = this.basketService.basketLines;
-        this.order.orderTotalAmount = this.basketService.basketTotalPkt;
-        this.prizeService.saveOrder(this.order).subscribe(value => {
-        }, error => {
-            if (error.status == 406) {
-                this.messageServiceExt.addMessage('error', 'Błąd ', 'Brak wystarczajacej ilości punktów');
-            } else {
-                this.messageServiceExt.addMessage('error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
-            }
-            this.setUserPoints();
-            this.stepper.selectedIndex = 0;
-        }, () => {
-            this.stepper.selectedIndex = 3;
-            this.order = new PrizeOrder();
-            this.basketService.basketTotalPkt = 0;
-            this.basketService.basketLines = [];
-            this.setUserPoints();
-            this.orderSubmit = false;
-        });
+
+        if(this.regulationsChecked){
+            this.order.prizeOrderItems = this.basketService.basketLines;
+            this.order.orderTotalAmount = this.basketService.basketTotalPkt;
+            this.prizeService.saveOrder(this.order).subscribe(value => {
+            }, error => {
+                if (error.status == 406) {
+                    this.messageServiceExt.addMessage('error', 'Błąd ', 'Brak wystarczajacej ilości punktów');
+                } else {
+                    this.messageServiceExt.addMessage('error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
+                }
+                this.setUserPoints();
+                this.stepper.selectedIndex = 0;
+            }, () => {
+                this.stepper.selectedIndex = 3;
+                this.order = new PrizeOrder();
+                this.basketService.basketTotalPkt = 0;
+                this.basketService.basketLines = [];
+                this.setUserPoints();
+                this.orderSubmit = false;
+            });
+        }
+
+
     }
 
     sortBasketASC() {

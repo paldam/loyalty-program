@@ -24,10 +24,20 @@ import {SliderModule} from 'primeng/slider';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './guard/auth.guard';
 import {routing} from './app.routing';
-import {DialogModule, MessageService, OverlayPanelModule, PanelModule, ProgressSpinnerModule, SpinnerModule} from 'primeng/primeng';
+import {
+    CheckboxModule,
+    DialogModule,
+    MessageService,
+    OverlayPanelModule,
+    PanelModule,
+    ProgressSpinnerModule,
+    SpinnerModule
+} from 'primeng/primeng';
 import {MessageServiceExt} from './messages/messageServiceExt';
 import {ToastModule} from 'primeng/toast';
 import {MainmanuComponent} from './mainmanu/mainmanu.component';
+import {OrderComponent} from './order/order.component';
+import {TableModule} from 'primeng/table';
 
 
 
@@ -36,7 +46,8 @@ import {MainmanuComponent} from './mainmanu/mainmanu.component';
     AppComponent,
       LoginComponent,
     ProductPickerComponent,
-      MainmanuComponent
+      MainmanuComponent,
+      OrderComponent
   ],
   imports: [
       routing,
@@ -58,6 +69,8 @@ import {MainmanuComponent} from './mainmanu/mainmanu.component';
       PanelModule,
       ToastModule,
       SpinnerModule,
+      CheckboxModule,
+      TableModule
 
   ],
   providers: [

@@ -1,4 +1,5 @@
 import {PrizeOrderItems} from './prize-order-items';
+import {PrizeOrderStatus} from '../order/PrizeOrderStatus';
 
 export class PrizeOrder {
     constructor(
@@ -13,6 +14,7 @@ export class PrizeOrder {
         public city? : string,
         public phone? : string,
         public email? : string,
+        public prizeOrderStatus? : PrizeOrderStatus
 
     ){
     }

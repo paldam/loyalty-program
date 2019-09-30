@@ -82,7 +82,8 @@
 
                     </div>
                 </mat-step>
-                    <mat-step [completed]="orderForm.valid">
+                <mat-step [completed]="true">
+                    <!--<mat-step [completed]="orderForm.valid">-->
                     <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
                     <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
@@ -252,13 +253,17 @@
                                     <input type="text" class="form-control" readonly id="phone"  [(ngModel)]="order.phone">
                                 </div>
 
-                                <div class="input-group gtt gttt">
+                                <div class="input-group gtt gt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Email</div>
                                     </div>
                                     <input type="text" class="form-control" readonly id="email"  [(ngModel)]="order.email">
                                 </div>
 
+                                <div class="regulations-cont col-12 gttt">
+                                    <span> Akceptuje regulamin </span> <span (click)="showRegulationModal=true" class="read-reg"> czytaj </span>
+                                    <p-checkbox class="reg-tit" [(ngModel)]="regulationsChecked" binary="true"></p-checkbox>
+                                </div>
 
                             </td>
                         </tr>
@@ -266,14 +271,17 @@
                 </div>
 
 
+
             </div>
-
-
-
-                    <div class="summ_button_group">
+                    <div *ngIf="(regulationsChecked== false) && orderSubmit" class="reg-error">
+                        Zaakceptuj regulamin
+                    </div>
+                    <div class="summ_button_group ">
                         <button class="control-button summ_button" mat-button matStepperPrevious><i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij </button>
                         <button class="control-button summ_button" mat-button (click)="saveOrder()">Zamów <i class="fa fa-check fas-r" aria-hidden="true"></i></button>
                     </div>
+
+
 
 
                     </mat-step>
@@ -299,7 +307,7 @@
 
 
 
-                            <div class="menu_card">
+                            <div  (click)="router.navigate(['orders'])" class="menu_card">
                                 <div class="menu_card_up">
                                     <i class="fas fa-align-justify fa-2x"></i>
                                 </div>
@@ -308,14 +316,6 @@
                                 </div>
                             </div>
 
-                            <div class="menu_card">
-                                <div class="menu_card_up">
-                                    <i class="fas fa-book fa-2x"></i>
-                                </div>
-                                <div class="menu_card_down">
-                                    Historia punktów
-                                </div>
-                            </div>
 
 
                             <div class="menu_card" (click)="authenticationService.logout()">
@@ -395,3 +395,13 @@
 
 
 </div>
+        <div class="dial">
+            <p-dialog header="Regulamin programu lojalnościowego" [(visible)]="showRegulationModal" modal="modal" width="600" minHeight="800" [responsive]="true">
+
+
+                regulamin
+
+            </p-dialog>
+        </div>
+
+

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Prize} from '../model/prize';
 import {PrizeOrder} from '../model/prize-order.model';
 import {AppConstans} from '../constans';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PrizeService {
@@ -21,6 +22,11 @@ export class PrizeService {
 
     saveOrder(order :PrizeOrder){
         return this.http.post(this.baseUrl+`/prize/order`,order);
+    }
+
+
+    getOrders(): Observable<PrizeOrder>{
+        return this.http.get(this.baseUrl+`/prize/userorders`);
     }
 
 

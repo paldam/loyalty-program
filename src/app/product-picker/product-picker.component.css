@@ -596,6 +596,10 @@ h1 {
 
 }
 
+
+.gt{
+    margin-bottom: 20px;
+}
 .gtt{
     margin-top: 8px;
     padding : 0px 25px;
@@ -622,6 +626,15 @@ h1 {
     right: 25px;
     bottom: 20px;
     font-family: 'Oswald', sans-serif;
+
+}
+
+.reg-error{
+    position: absolute;
+    right: 45px;
+    bottom: 65px;
+    font-family: 'Oswald', sans-serif;
+    color: red;
 
 }
 
@@ -683,4 +696,20 @@ h1 {
 .menu_card_up{
     padding-top: 15px;
     padding-bottom: 15px;
+}
+.regulations-cont{
+
+}
+
+.reg-tit{
+    margin-left: 20px;
+}
+
+.read-reg{
+    color: #fead04;
+    cursor: pointer;
+}
+
+.dial{
+    text-align: left;
 }
