@@ -1,5 +1,5 @@
 import {PrizeOrderItems} from './prize-order-items';
-import {PrizeOrderStatus} from '../order/PrizeOrderStatus';
+import {PrizeOrderStatus} from './priz-order-status.model';
 
 export class PrizeOrder {
     constructor(

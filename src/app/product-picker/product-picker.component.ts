@@ -119,7 +119,11 @@ export class ProductPickerComponent implements OnInit {
             this.prizeService.saveOrder(this.order).subscribe(value => {
             }, error => {
                 if (error.status == 406) {
-                    this.messageServiceExt.addMessage('error', 'Błąd ', 'Brak wystarczajacej ilości punktów');
+                    this.messageServiceExt.addMessage('error', 'Błąd ', "Brak wystarczajacej ilości punktów");
+                    console.log(error);
+                } else if(error.status == 409){
+                    this.messageServiceExt.addMessage('error', 'Błąd ', "Brak nagrody na stanie magazynowym");
+
                 } else {
                     this.messageServiceExt.addMessage('error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
                 }

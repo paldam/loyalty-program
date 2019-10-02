@@ -82,8 +82,7 @@
 
                     </div>
                 </mat-step>
-                <mat-step [completed]="true">
-                    <!--<mat-step [completed]="orderForm.valid">-->
+                    <mat-step [completed]="orderForm.valid">
                     <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
                     <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">

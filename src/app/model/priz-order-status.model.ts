@@ -1,5 +1,3 @@
-
-
 export class PrizeOrderStatus {
     constructor(
         public orderStatusId?: number,

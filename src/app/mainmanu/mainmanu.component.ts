@@ -19,18 +19,32 @@ export class MainmanuComponent implements OnInit {
     public formSubmitted: boolean = false;
     public passwordConfirm: string = '';
     public passwordDontMatch: any = null;
+    public currentUserName: string='';
 
   constructor(public userService :UserService,public  authenticationService :AuthenticationService,public router: Router,public  messageService : MessageServiceExt) {
 
     this.setUserPoints();
-
+    this.setUserName();
 
 
   }
 
   ngOnInit() {
-    this.userService.getCurrentUserPoints();
+
+
   }
+
+    private setUserName() {
+        this.userService.getCurrentUserName().subscribe((value: string) => {
+            this.currentUserName = value;
+            
+            console.log("vav" + value);
+        }, error => {
+            console.log(error);
+        }, () => {
+
+        });
+    }
 
 
 

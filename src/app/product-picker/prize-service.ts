@@ -17,7 +17,7 @@ export class PrizeService {
     }
 
     getPrize(){
-        return this.http.get<Prize[]>(this.baseUrl+`/prize/prizelist`);
+        return this.http.get<Prize[]>(this.baseUrl+`/prize/prizelistnodel`);
     }
 
     saveOrder(order :PrizeOrder){

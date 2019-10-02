@@ -30,6 +30,11 @@ export class UserService {
         return this.http.get(this.baseUrl+`/current_user_points`);
     }
 
+    public getCurrentUserName(): Observable<string>{
+        return this.http.get(this.baseUrl+`/current_user_name`,{responseType:"text"});
+    }
+
+
     isFirsLoginOfCurrentUser(){
         return this.http.get(this.baseUrl+`/is_first_time`);
     }

@@ -3,6 +3,7 @@
     text-align: left;
     font-family: 'Oswald', sans-serif;
     font-size: 15px;
+    min-height: 800px;
 }
 .tab-head{
     text-align: center;
