@@ -1,53 +1,47 @@
-.menu_card{
+.menu_card {
     width: 145px;
     height: 120px;
-    background-color:white;
+    background-color: white;
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
-    box-shadow:
-            0 3px 5px 0 rgba(0, 0, 0, 0.2),
-            0 3px 3px 0 rgba(0, 0, 0, 0.14),
-            0 4px 3px -1px rgba(0, 0, 0, 0.12) ;
-
-    border-top: 1px rgba(18,10,20,0.18) solid;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2),
+    0 3px 3px 0 rgba(0, 0, 0, 0.14),
+    0 4px 3px -1px rgba(0, 0, 0, 0.12);
+    border-top: 1px rgba(18, 10, 20, 0.18) solid;
     color: #2D426D;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    margin-right: 10px;
+    margin: 0 10px 20px auto;
 
 }
 
-.menu_card:hover{
+.menu_card:hover {
     color: #F5841F;
 }
-.menu-card-cont{
+
+.menu-card-cont {
     text-align: center;
     max-width: 700px;
-    margin: 0 auto;
-   margin-top: 40px;
-    margin-bottom: 50px;
+    margin: 40px auto 50px;
     cursor: pointer;
 }
-.menu_card_up{
+
+.menu_card_up {
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
-.greatings{
+.greatings {
     margin-top: 25px;
     text-align: left;
     padding-left: 50px;
 }
 
-
-
-.wit{
+.wit {
     font-size: 30px;
     font-family: 'Oswald', sans-serif;
     color: #676767;
 }
 
-.wit2{
+.wit2 {
     font-size: 30px;
     font-family: 'Oswald', sans-serif;
     color: #F5841F;

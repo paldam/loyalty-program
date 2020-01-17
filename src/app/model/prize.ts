@@ -6,8 +6,7 @@ export class Prize {
         public pkt?: number,
         public isAvailable?: boolean,
         public imageLink?: string,
-
-    ){
+    ) {
     }
 }
 

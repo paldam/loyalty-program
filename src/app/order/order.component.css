@@ -1,24 +1,21 @@
-.orders-view{
+.orders-view {
     margin-top: 100px;
     text-align: left;
     font-family: 'Oswald', sans-serif;
     font-size: 15px;
     min-height: 800px;
 }
-.tab-head{
+
+.tab-head {
     text-align: center;
 }
 
-.order-page-title{
+.order-page-title {
     color: #283a68;
     margin-bottom: 40px;
     margin-left: 0px;
     font-size: 26px;
 }
-
-
-
-
 
 .ui-table .ui-table-thead > tr > th {
     background-color: #283a68 !important;

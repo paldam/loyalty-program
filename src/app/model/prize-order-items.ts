@@ -4,8 +4,7 @@ export class PrizeOrderItems {
     constructor(
         public prize?: Prize,
         public quantity?: number
-
-    ){
+    ) {
     }
 }
 

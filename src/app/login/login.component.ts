@@ -1,24 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthenticationService} from '../auth.service';
 import {UserService} from '../user.service';
 import {PasswordChange} from '../model/password_change.model';
 import {NgForm} from '@angular/forms';
-import {MessageService} from 'primeng/api';
 import {MessageServiceExt} from '../messages/messageServiceExt';
 
-
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  model: any = {};
-  loading = false;
-  error = '';
-  public showChangePassworModal: boolean = false;
+    model: any = {};
+    loading = false;
+    error = '';
+    public showChangePasswordModal: boolean = false;
     public showResetPasswordModal: boolean = false;
     public passwordChange: PasswordChange = new PasswordChange();
     public formSubmitted: boolean = false;
@@ -28,13 +25,14 @@ export class LoginComponent implements OnInit {
     public emailToReset: string;
     public resetText: boolean = false;
 
-  constructor(
-      private router: Router, private authenticationService: AuthenticationService, private userService :UserService, private messageService: MessageServiceExt) { }
+    constructor(
+        private router: Router, private authenticationService: AuthenticationService, private userService: UserService,
+        private messageService: MessageServiceExt) {
+    }
 
-  ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
-  }
+    ngOnInit() {
+        this.authenticationService.logout();
+    }
 
     login() {
         this.resetText = false;
@@ -43,17 +41,13 @@ export class LoginComponent implements OnInit {
             .subscribe(result => {
                 if (result === true) {
                     this.userService.isFirsLoginOfCurrentUser().subscribe(value => {
-
-                        console.log(value);
                         if (value) {
                             this.loading = false;
-                            this.showChangePassworModal = true;
+                            this.showChangePasswordModal = true;
                         } else {
                             this.router.navigate(['menu']);
                         }
                     });
-
-
                 } else {
                     this.error = 'Błąd wewnętrzny';
                     this.loading = false;
@@ -66,16 +60,12 @@ export class LoginComponent implements OnInit {
 
     submitResetPassForm(form) {
         this.formResetSubmitted = true;
-
         if (form.valid) {
-
-            console.log(this.emailToReset);
             this.userService.resetPassword(this.emailToReset).subscribe(data => {
                     form.reset();
-                    this.formResetSubmitted  = false;
+                    this.formResetSubmitted = false;
                     this.showResetPasswordModal = false;
                     this.resetText = true;
-
                     setTimeout(() => {
                         this.resetText = false;
                     }, 10000);
@@ -86,31 +76,23 @@ export class LoginComponent implements OnInit {
         }
     }
 
-
     submitChangePassForm(form: NgForm) {
         this.formSubmitted = true;
         if (form.valid) {
             if (this.passwordChange.newPassword != this.passwordConfirm) {
-                this.passwordDontMatch = "Hasła są różne";
+                this.passwordDontMatch = 'Hasła są różne';
             } else {
                 this.passwordDontMatch = null;
                 this.userService.changePassword(this.passwordChange).subscribe(data => {
-                    
-                    console.log(data);
                         form.reset();
                         this.formSubmitted = false;
                         this.messageService.addMessageWithTime('success', 'Status', 'Zmieniono hasło', 5000);
                         this.router.navigate(['/']);
-
                     },
                     err => {
                         this.messageService.addMessageWithTime('error', 'Status', err.error, 5000);
-                        console.log(err);
-
                     });
             }
         }
     }
-
-
 }

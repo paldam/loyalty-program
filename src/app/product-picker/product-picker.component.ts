@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Prize} from '../model/prize';
 import {PrizeService} from './prize-service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {BasketService} from '../basket/basket.service';
 import {UserService} from '../user.service';
-import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
 import {MyErrorStateMatcher} from '../my-error-state-matcher';
 import {PrizeOrder} from '../model/prize-order.model';
 import {AuthenticationService} from '../auth.service';
@@ -15,11 +13,10 @@ import {PrizeOrderItems} from '../model/prize-order-items';
 import {MessageServiceExt} from '../messages/messageServiceExt';
 import {Router} from '@angular/router';
 
-
 declare var jquery: any;
 declare var $: any;
-@Component({
 
+@Component({
     selector: 'app-product-picker',
     templateUrl: './product-picker.component.html',
     styleUrls: ['./product-picker.component.css'],
@@ -37,14 +34,15 @@ export class ProductPickerComponent implements OnInit {
     public regulationsChecked: boolean = false;
     public orderSubmit: boolean = false;
     public showRegulationModal: boolean = false;
-
     public clickNavNumber: number = 0;
     public isBasketVisable: boolean = false;
-    @ViewChild('stepper',{static: false}) stepper: MatStepper;
-    @ViewChild('orderForm',{static: false}) orderForm: NgForm;
+    @ViewChild('stepper', {static: false}) stepper: MatStepper;
+    @ViewChild('orderForm', {static: false}) orderForm: NgForm;
 
-
-    constructor(public router: Router,public messageServiceExt :MessageServiceExt,private _formBuilder: FormBuilder,public spinerService :SpinerService, public prizeService: PrizeService, public basketService: BasketService, public userService: UserService, public authenticationService: AuthenticationService) {
+    constructor(public router: Router, public messageServiceExt: MessageServiceExt, private _formBuilder: FormBuilder,
+                public spinerService: SpinerService, public prizeService: PrizeService,
+                public basketService: BasketService, public userService: UserService,
+                public authenticationService: AuthenticationService) {
         this.setUserPoints();
         this.setPrizeFilter();
     }
@@ -53,7 +51,7 @@ export class ProductPickerComponent implements OnInit {
         this.firstFormGroup = new FormGroup({
             'nameFormControl': new FormControl(null, Validators.required),
             'addressFormControl': new FormControl(null, Validators.required),
-            'zipFormControl': new FormControl(null, [Validators.pattern('[0-9]{2}-[0-9]{3}'),Validators.required]),
+            'zipFormControl': new FormControl(null, [Validators.pattern('[0-9]{2}-[0-9]{3}'), Validators.required]),
             'cityFormControl': new FormControl(null, Validators.required),
             'phoneFormControl': new FormControl(null, Validators.required),
             'emailFormControl': new FormControl(null, [Validators.required, Validators.email]),
@@ -64,9 +62,8 @@ export class ProductPickerComponent implements OnInit {
         this.spinerService.showSpinner = true;
         this.prizeService.getPrize().subscribe(data => {
             this.prizes = data;
-        },error1 => {
-
-        },() => {
+        }, error => {
+        }, () => {
             this.spinerService.showSpinner = false;
         });
     }
@@ -74,7 +71,6 @@ export class ProductPickerComponent implements OnInit {
     private setUserPoints() {
         this.userService.getCurrentUserPoints().subscribe((value: number) => {
             this.userService.userPkt = value;
-            console.log("ustawiam punkty");
         }, error => {
         }, () => {
             this.getPrize();
@@ -112,20 +108,21 @@ export class ProductPickerComponent implements OnInit {
 
     saveOrder() {
         this.orderSubmit = true;
-
-        if(this.regulationsChecked){
+        if (this.regulationsChecked) {
             this.order.prizeOrderItems = this.basketService.basketLines;
             this.order.orderTotalAmount = this.basketService.basketTotalPkt;
             this.prizeService.saveOrder(this.order).subscribe(value => {
             }, error => {
                 if (error.status == 406) {
-                    this.messageServiceExt.addMessage('error', 'Błąd ', "Brak wystarczajacej ilości punktów");
+                    this.messageServiceExt.addMessage(
+                        'error', 'Błąd ', 'Brak wystarczajacej ilości punktów');
                     console.log(error);
-                } else if(error.status == 409){
-                    this.messageServiceExt.addMessage('error', 'Błąd ', "Brak nagrody na stanie magazynowym");
-
+                } else if (error.status == 409) {
+                    this.messageServiceExt.addMessage(
+                        'error', 'Błąd ', 'Brak nagrody na stanie magazynowym');
                 } else {
-                    this.messageServiceExt.addMessage('error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
+                    this.messageServiceExt.addMessage(
+                        'error', 'Błąd ', 'Wystapił bład zamówienie nie zostało przetworzone, spróbuj za chwilę lub skontaktuj się z pomoca techniczna');
                 }
                 this.setUserPoints();
                 this.stepper.selectedIndex = 0;
@@ -138,8 +135,6 @@ export class ProductPickerComponent implements OnInit {
                 this.orderSubmit = false;
             });
         }
-
-
     }
 
     sortBasketASC() {
@@ -156,15 +151,13 @@ export class ProductPickerComponent implements OnInit {
     }
 
     animateBasket() {
-
         $('#icco').css('transform', 'translate(-30px, 0px)');
-
         setTimeout(() => {
             $('#icco').css('transform', 'scale(1.2)');
         }, 200);
-         setTimeout(() => {
-             $('#icco').css('transform', 'scale(1)');
-         }, 400);
+        setTimeout(() => {
+            $('#icco').css('transform', 'scale(1)');
+        }, 400);
     }
 
     getBadgeStyle(): string {
@@ -176,62 +169,40 @@ export class ProductPickerComponent implements OnInit {
             return 'badge2';
     }
 
-
-
-
-
-    checkWeatherHideBasket(){
-        if(this.basketService.basketLines.length == 0){
+    checkWeatherHideBasket() {
+        if (this.basketService.basketLines.length == 0) {
             this.slidNav();
             this.stepper.selectedIndex = 0;
         }
-
     }
 
-    deleteLine(basket : PrizeOrderItems){
-
-     this.basketService.deleteLine(basket);
-
-
+    deleteLine(basket: PrizeOrderItems) {
+        this.basketService.deleteLine(basket);
     }
 
     updateQuantity(basketLine: PrizeOrderItems, quantity: any) {
-
-        this.basketService.updateQuantity(basketLine,quantity);
-
-
-        if(this.basketService.basketLines.length == 0){
-
+        this.basketService.updateQuantity(basketLine, quantity);
+        if (this.basketService.basketLines.length == 0) {
             this.slidNav();
             this.stepper.selectedIndex = 0;
         }
-
     }
-
 
     slidNav() {
         if (this.clickNavNumber % 2 == 0) {
-            // $('#menu_slide_icon').addClass('fa-rotate-180');
             $('#basket_cont').css('width', '400px');
-            // $('#main').css('marginLeft', '0px');
-            // $('#black').removeClass('black_background');
             this.clickNavNumber += 1;
         } else {
-            // $('#menu_slide_icon').removeClass('fa-rotate-180');
             if ($(window).width() > 650) {
                 $('#basket_cont').css('width', '0px');
-                // $('#main').css('marginLeft', '190px');
             } else {
                 $('#basket_cont').css('width', '0px');
-                // $('#main').css('marginLeft', '0px');
-                // $('#black').addClass('black_background');
             }
             this.clickNavNumber += 1;
         }
     }
 
-
-    goForward(stepper: MatStepper){
+    goForward(stepper: MatStepper) {
         stepper.next();
         this.slidNav();
     }

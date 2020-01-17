@@ -1,163 +1,163 @@
+<div class="steper ">
+    <mat-horizontal-stepper [linear]="true" #stepper labelPosition="bottom">
+
+        <ng-template matStepperIcon="done">
+            <mat-icon>done_all</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+            <mat-icon>done</mat-icon>
+        </ng-template>
+
+        <mat-step
+                [completed]="basketService.basketLines.length >0 && basketService.basketTotalPkt
+                <= userService.userPkt && basketService.basketTotalPkt">
+            <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
+            <div class="step1 ">
 
 
-        <div class="steper ">
-            <mat-horizontal-stepper [linear]="true" #stepper labelPosition="bottom">
-
-                <ng-template matStepperIcon="done">
-                    <mat-icon>done_all</mat-icon>
-                </ng-template>
-                <ng-template matStepperIcon="edit">
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-
-                <mat-step [completed]="basketService.basketLines.length >0 && basketService.basketTotalPkt <= userService.userPkt && basketService.basketTotalPkt">
-                    <ng-template matStepLabel><span class="step-label">Wybierz prezent</span></ng-template>
-                    <div class="step1 ">
-
-
-
-
-
-                            <div class=" sorting_section row">
-                                <div class="col-md-6">
-                                    <div class="sortdiv">
-                                        <span> Sortuj: </span>
-                                        <button type="button" class="btn btn-secondary btnn" (click)="sortBasketASC()">
-                                            Rosnąco  <i class="fa fa-angle-double-up icon-yellow" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-secondary btnn" (click)="sortBasketDESC()">
-                                            Malejąco  <i class="fa fa-angle-double-down icon-yellow" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6 removable-col2">
-                                    <div class="removable-col2 small-scren-points col-md-6 ">
-                                        Posiadasz <span class="filter-value">{{userService.userPkt}}</span> punktów
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 removable-col">
-                                    <div class="price-sort-div">
-                                        <span>Zakres od: <span class="filter-value">{{rangeValues[0]}}</span>  punktów do   <span class="filter-value"> {{rangeValues[1]}}</span>  punktów </span>
-                                        <p-slider class="slider" *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues"
-                                                  [style]="{'width':'14em'}"
-                                                  [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]"
-                                                  [step]="100"
-                                                  (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        <div class="row">
-                            <div class="card_section">
-
-                                <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}"
-                                        [style]="{width: '360px'}">
-                                    <p-header>
-                                        <img src="http://www.kosze.waw.pl/images/prizes/{{i.id}}.jpg" width="200"
-                                             height="200">
-                                    </p-header>
-                                    <div class="scrollbar scrollbar-pink">{{i.description}}
-
-
-                                    </div>
-                                    <p-footer>
-
-                                        <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
-                                           class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
-                                           (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
-
-
-                                        <div class="points icon-grey">{{i.pkt}} punktów</div>
-
-                                    </p-footer>
-                                </p-card>
-                            </div>
-
+                <div class=" sorting_section row">
+                    <div class="col-md-6">
+                        <div class="sortdiv">
+                            <span> Sortuj: </span>
+                            <button type="button" class="btn btn-secondary btnn" (click)="sortBasketASC()">
+                                Rosnąco <i class="fa fa-angle-double-up icon-yellow" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary btnn" (click)="sortBasketDESC()">
+                                Malejąco <i class="fa fa-angle-double-down icon-yellow" aria-hidden="true"></i>
+                            </button>
                         </div>
-
 
                     </div>
-                </mat-step>
-                    <mat-step [completed]="orderForm.valid">
-                    <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
 
-                    <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Imię i nazwisko *" formControlName="nameFormControl"
-                                   [errorStateMatcher]="matcher" [(ngModel)]="order.nameLastname">
-                            <mat-error *ngIf="firstFormGroup.get('nameFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Ulica i numer domu / lokalu *"
-                                   formControlName="addressFormControl" [errorStateMatcher]="matcher"
-                                   [(ngModel)]="order.address">
-                            <mat-error *ngIf="firstFormGroup.get('addressFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Kod pocztowy *" formControlName="zipFormControl"
-                                   [errorStateMatcher]="matcher" [(ngModel)]="order.zipCode">
-                            <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                            <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.pattern">
-                                Niepoprawny format kodu pocztowego. Prawidłowy format np: 01-355
-                            </mat-error>
-
-                        </mat-form-field>
-
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Miejscowość *" formControlName="cityFormControl"
-                                   [errorStateMatcher]="matcher" [(ngModel)]="order.city">
-                            <mat-error *ngIf="firstFormGroup.get('cityFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Telefon *" formControlName="phoneFormControl"
-                                   [errorStateMatcher]="matcher" [(ngModel)]="order.phone">
-                            <mat-error *ngIf="firstFormGroup.get('phoneFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Email *" formControlName="emailFormControl"
-                                   [errorStateMatcher]="matcher" [(ngModel)]="order.email">
-                            <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.required">
-                                To pole jest wymagane
-                            </mat-error>
-                            <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.email">
-                                email jest nie poprawny
-                            </mat-error>
-                        </mat-form-field>
-
-
-                        <div class="control-group">
-                            <button class="control-button" mat-button matStepperPrevious> <i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij</button>
-                            <button class="control-button"  mat-button matStepperNext>Idz dalej <i class="fa fa-arrow-right fas-r" aria-hidden="true"></i></button>
+                    <div class="col-md-6 removable-col2">
+                        <div class="removable-col2 small-scren-points col-md-6 ">
+                            Posiadasz <span class="filter-value">{{userService.userPkt}}</span> punktów
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="col-md-6 removable-col">
+                        <div class="price-sort-div">
+                            <span>Zakres od: <span class="filter-value">{{rangeValues[0]}}</span>  punktów do   <span
+                                    class="filter-value"> {{rangeValues[1]}}</span>  punktów </span>
+                            <p-slider class="slider" *ngIf="filtersLoaded | async" [(ngModel)]="rangeValues"
+                                      [style]="{'width':'14em'}"
+                                      [range]="true" [min]="rangeConst[0]" [max]="rangeConst[1]"
+                                      [step]="100"
+                                      (onSlideEnd)="filterByPriceRange(rangeValues[0],rangeValues[1])"></p-slider>
+                        </div>
+                    </div>
+                </div>
 
 
-                </mat-step>
+                <div class="row">
+                    <div class="card_section">
 
-                <mat-step [completed]="orderSubmit">
+                        <p-card *ngFor="let i of prizesfiltered" class="cardd fadeIn " header="{{i.name}}"
+                                [style]="{width: '360px'}">
+                            <p-header>
+                                <img src="http://www.kosze.waw.pl/images/prizes/{{i.id}}.jpg" width="200"
+                                     height="200">
+                            </p-header>
+                            <div class="scrollbar scrollbar-pink">{{i.description}}
 
-                    <ng-template matStepLabel>Podsumowanie</ng-template>
 
+                            </div>
+                            <p-footer>
+
+                                <i [ngClass]="(basketService.basketTotalPkt + i.pkt > userService.userPkt)? 'icon-none':'icon-grey' "
+                                   class="fas fa-cart-arrow-down fa-3x icon-grey basket-add fadeIn"
+                                   (click)="basketService.addPrizeToBasket(i);animateBasket()"></i>
+
+
+                                <div class="points icon-grey">{{i.pkt}} punktów</div>
+
+                            </p-footer>
+                        </p-card>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </mat-step>
+        <mat-step [completed]="orderForm.valid">
+            <ng-template matStepLabel><span class="step-label">Dane do wysyłki</span></ng-template>
+
+            <form #orderForm="ngForm" [formGroup]="firstFormGroup" class="step2-form">
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Imię i nazwisko *" formControlName="nameFormControl"
+                           [errorStateMatcher]="matcher" [(ngModel)]="order.nameLastname">
+                    <mat-error *ngIf="firstFormGroup.get('nameFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Ulica i numer domu / lokalu *"
+                           formControlName="addressFormControl" [errorStateMatcher]="matcher"
+                           [(ngModel)]="order.address">
+                    <mat-error *ngIf="firstFormGroup.get('addressFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Kod pocztowy *" formControlName="zipFormControl"
+                           [errorStateMatcher]="matcher" [(ngModel)]="order.zipCode">
+                    <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('zipFormControl').errors?.pattern">
+                        Niepoprawny format kodu pocztowego. Prawidłowy format np: 01-355
+                    </mat-error>
+
+                </mat-form-field>
+
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Miejscowość *" formControlName="cityFormControl"
+                           [errorStateMatcher]="matcher" [(ngModel)]="order.city">
+                    <mat-error *ngIf="firstFormGroup.get('cityFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Telefon *" formControlName="phoneFormControl"
+                           [errorStateMatcher]="matcher" [(ngModel)]="order.phone">
+                    <mat-error *ngIf="firstFormGroup.get('phoneFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Email *" formControlName="emailFormControl"
+                           [errorStateMatcher]="matcher" [(ngModel)]="order.email">
+                    <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.required">
+                        To pole jest wymagane
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('emailFormControl').errors?.email">
+                        email jest nie poprawny
+                    </mat-error>
+                </mat-form-field>
+
+
+                <div class="control-group">
+                    <button class="control-button" mat-button matStepperPrevious>
+                        <i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij
+                    </button>
+                    <button class="control-button" mat-button matStepperNext>Idz dalej <i
+                            class="fa fa-arrow-right fas-r" aria-hidden="true"></i></button>
+                </div>
+            </form>
+
+
+        </mat-step>
+
+        <mat-step [completed]="orderSubmit">
+
+            <ng-template matStepLabel>Podsumowanie</ng-template>
 
 
             <div class="basket_summary_cont row">
@@ -169,41 +169,41 @@
                         <tr>
                             <td colspan="5">
                                 <div class="basket_sum_prize_head">
-                                   <span class="sum_head_title">Zawartość zamówienia:</span>
+                                    <span class="sum_head_title">Zawartość zamówienia:</span>
                                 </div>
                             </td>
                         </tr>
                         <tr *ngFor="let basketLine of basketService.basketLines">
-                            <td class="coltab-sum-0 gtt"><img src="http://www.kosze.waw.pl/images/prizes/{{basketLine.prize.id}}.jpg" width="100"
-                                                          height="100"></td>
+                            <td class="coltab-sum-0 gtt"><img
+                                    src="http://www.kosze.waw.pl/images/prizes/{{basketLine.prize.id}}.jpg" width="100"
+                                    height="100"></td>
                             <td class="coltab-sum-1 ">{{basketLine.prize.name}}</td>
                             <td class="coltab-sum-2 ">
                                 <p-spinner size="1" [(ngModel)]="basketLine.quantity" readonly="true"
-                                           (onChange)="updateQuantity(basketLine,basketLine.quantity)" [min]="0"></p-spinner>
+                                           (onChange)="updateQuantity(basketLine,basketLine.quantity)"
+                                           [min]="0"></p-spinner>
                             </td>
                             <td class="coltab-sum-3 ">{{basketLine.prize.pkt}} pkt.</td>
                             <td class="coltab-sum-4 gtt"></td>
                             <!--<td class="coltab-sum-4 gtt"><i class="fa fa-times del_row"-->
-                                                        <!--(click)="deleteLine(basketLine);checkWeatherHideBasket()"-->
-                                                        <!--aria-hidden="true"></i></td>-->
+                            <!--(click)="deleteLine(basketLine);checkWeatherHideBasket()"-->
+                            <!--aria-hidden="true"></i></td>-->
                         </tr>
 
                         <tr>
                             <td colspan="5">
                                 <div class="basket_sum_prize_footer">
-                                    <div class="sum_head_title"> Suma punktów:   <span class="opi">  {{basketService.basketTotalPkt}}</span> </div>
+                                    <div class="sum_head_title"> Suma punktów: <span class="opi">  {{basketService.basketTotalPkt}}</span>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
 
 
-
                     </table>
 
 
-
                 </div>
-
 
 
                 <div class="basket_sum_data col-xl-5">
@@ -216,52 +216,59 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td>
 
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Imię i nazwisko</div>
                                     </div>
-                                    <input type="text" class="form-control" readonly id="name" [(ngModel)]="order.nameLastname">
+                                    <input type="text" class="form-control" readonly id="name"
+                                           [(ngModel)]="order.nameLastname">
                                 </div>
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Adres</div>
                                     </div>
-                                    <input type="text" class="form-control" readonly id="addr"  [(ngModel)]="order.address">
+                                    <input type="text" class="form-control" readonly id="addr"
+                                           [(ngModel)]="order.address">
                                 </div>
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Miasto</div>
                                     </div>
-                                    <input type="text" class="form-control" readonly id="cit"  [(ngModel)]="order.city">
+                                    <input type="text" class="form-control" readonly id="cit" [(ngModel)]="order.city">
                                 </div>
 
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Kod pocztowy</div>
                                     </div>
-                                    <input type="text" class="form-control"readonly  id="zip"  [(ngModel)]="order.zipCode">
+                                    <input type="text" class="form-control" readonly id="zip"
+                                           [(ngModel)]="order.zipCode">
                                 </div>
 
                                 <div class="input-group gtt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Telefon</div>
                                     </div>
-                                    <input type="text" class="form-control" readonly id="phone"  [(ngModel)]="order.phone">
+                                    <input type="text" class="form-control" readonly id="phone"
+                                           [(ngModel)]="order.phone">
                                 </div>
 
                                 <div class="input-group gtt gt">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Email</div>
                                     </div>
-                                    <input type="text" class="form-control" readonly id="email"  [(ngModel)]="order.email">
+                                    <input type="text" class="form-control" readonly id="email"
+                                           [(ngModel)]="order.email">
                                 </div>
 
                                 <div class="regulations-cont col-12 gttt">
-                                    <span> Akceptuje regulamin </span> <span (click)="showRegulationModal=true" class="read-reg"> czytaj </span>
-                                    <p-checkbox class="reg-tit" [(ngModel)]="regulationsChecked" binary="true"></p-checkbox>
+                                    <span> Akceptuje regulamin </span> <span (click)="showRegulationModal=true"
+                                                                             class="read-reg"> czytaj </span>
+                                    <p-checkbox class="reg-tit" [(ngModel)]="regulationsChecked"
+                                                binary="true"></p-checkbox>
                                 </div>
 
                             </td>
@@ -270,76 +277,67 @@
                 </div>
 
 
-
             </div>
-                    <div *ngIf="(regulationsChecked== false) && orderSubmit" class="reg-error">
-                        Zaakceptuj regulamin
-                    </div>
-                    <div class="summ_button_group ">
-                        <button class="control-button summ_button" mat-button matStepperPrevious><i class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij </button>
-                        <button class="control-button summ_button" mat-button (click)="saveOrder()">Zamów <i class="fa fa-check fas-r" aria-hidden="true"></i></button>
-                    </div>
+            <div *ngIf="(regulationsChecked== false) && orderSubmit" class="reg-error">
+                Zaakceptuj regulamin
+            </div>
+            <div class="summ_button_group ">
+                <button class="control-button summ_button" mat-button matStepperPrevious><i
+                        class="fa fa-arrow-left fas-l" aria-hidden="true"></i> Cofnij
+                </button>
+                <button class="control-button summ_button" mat-button (click)="saveOrder()">Zamów <i
+                        class="fa fa-check fas-r" aria-hidden="true"></i></button>
+            </div>
 
 
+        </mat-step>
+        <mat-step [completed]="false">
+            <ng-template matStepLabel>Koniec</ng-template>
+
+            <div class="order_info">
+                Twoje zamówienie zostało zrealizowane, Na maila podanego w zamówieniu zostało wysłane
+                potwierdzenie.
+            </div>
 
 
-                    </mat-step>
-                <mat-step [completed]="false">
-                    <ng-template matStepLabel>Koniec</ng-template>
-
-                    <div class="order_info">
-                        Twoje zamówienie zostało zrealizowane, Na maila podanego w zamówieniu zostało wysłane
-                        potwierdzenie.
-                    </div>
-
-
-                    <div class="menu-card-cont" >
-                        <div class="row ">
-                            <div class="menu_card" (click)=" router.navigate(['menu'])" >
-                                <div class="menu_card_up">
-                                    <i class="fas fa-home fa-2x"></i>
-                                </div>
-                                <div class="menu_card_down">
-                                    Menu główne
-                                </div>
-                            </div>
-
-
-
-                            <div  (click)="router.navigate(['orders'])" class="menu_card">
-                                <div class="menu_card_up">
-                                    <i class="fas fa-align-justify fa-2x"></i>
-                                </div>
-                                <div class="menu_card_down">
-                                    Twoje zamówienia
-                                </div>
-                            </div>
-
-
-
-                            <div class="menu_card" (click)="authenticationService.logout()">
-                                <div class="menu_card_up">
-                                    <i class="fas fa-door-open fa-2x"></i>
-                                </div>
-                                <div class="menu_card_down">
-                                    Wyloguj
-                                </div>
-                            </div>
-
+            <div class="menu-card-cont">
+                <div class="row ">
+                    <div class="menu_card" (click)=" router.navigate(['menu'])">
+                        <div class="menu_card_up">
+                            <i class="fas fa-home fa-2x"></i>
+                        </div>
+                        <div class="menu_card_down">
+                            Menu główne
                         </div>
                     </div>
 
 
+                    <div (click)="router.navigate(['orders'])" class="menu_card">
+                        <div class="menu_card_up">
+                            <i class="fas fa-align-justify fa-2x"></i>
+                        </div>
+                        <div class="menu_card_down">
+                            Twoje zamówienia
+                        </div>
+                    </div>
 
 
+                    <div class="menu_card" (click)="authenticationService.logout()">
+                        <div class="menu_card_up">
+                            <i class="fas fa-door-open fa-2x"></i>
+                        </div>
+                        <div class="menu_card_down">
+                            Wyloguj
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 
-
-                </mat-step>
-            </mat-horizontal-stepper>
-        </div>
-
-
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>
 
 
 <div *ngIf="stepper.selectedIndex != 2" id="basket_cont" class="basket_cont">
@@ -382,7 +380,7 @@
         <div class="basket_error" *ngIf="basketService.basketTotalPkt > userService.userPkt"> Brak punktów</div>
 
 
-        <div *ngIf="basketService.basketLines.length >0" class="basket_fot"> Suma:  {{basketService.basketTotalPkt}}
+        <div *ngIf="basketService.basketLines.length >0" class="basket_fot"> Suma: {{basketService.basketTotalPkt}}
         </div>
 
         <div *ngIf="basketService.basketTotalPkt <= userService.userPkt && basketService.basketTotalPkt > 0 "
@@ -394,13 +392,14 @@
 
 
 </div>
-        <div class="dial">
-            <p-dialog header="Regulamin programu lojalnościowego" [(visible)]="showRegulationModal" modal="modal" width="600" minHeight="800" [responsive]="true">
+<div class="dial">
+    <p-dialog header="Regulamin programu lojalnościowego" [(visible)]="showRegulationModal" modal="modal" width="600"
+              minHeight="800" [responsive]="true">
 
 
-                regulamin
+        regulamin
 
-            </p-dialog>
-        </div>
+    </p-dialog>
+</div>
 
 

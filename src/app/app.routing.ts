@@ -6,7 +6,6 @@ import {ProductPickerComponent} from './product-picker/product-picker.component'
 import {MainmanuComponent} from './mainmanu/mainmanu.component';
 import {OrderComponent} from './order/order.component';
 
-
 const routes: Routes = [
 
     {path: 'login', component: LoginComponent},

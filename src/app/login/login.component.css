@@ -11,20 +11,6 @@ body {
     font-family: Oswald, sans-serif;
 
 }
-.ase {
-    font-family: Oswald, sans-serif;
-}
-.pass-forg{
-    position: absolute;
-    top: 250px;
-    right: 20px;
-    cursor: pointer;
-}
-
-.log h2 {
-    padding-bottom: 20px;
-
-}
 
 .login_cont {
     padding-top: 20px;
@@ -204,6 +190,22 @@ body {
 
 .cursor_dis {
     cursor: not-allowed !important;
+
+}
+
+.ase {
+    font-family: Oswald, sans-serif;
+}
+
+.pass-forg {
+    position: absolute;
+    top: 250px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.log h2 {
+    padding-bottom: 20px;
 
 }
 

@@ -2,17 +2,14 @@ import {Injectable, OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 
 @Injectable()
-export class MessageServiceExt  implements OnInit {
-
-    constructor(private messageService :MessageService) {
-
+export class MessageServiceExt implements OnInit {
+    constructor(private messageService: MessageService) {
     }
 
     ngOnInit() {
     }
 
-
-    addMessage(messageType: string, textHeader : string, text: string){
+    addMessage(messageType: string, textHeader: string, text: string) {
         this.messageService.add({
             severity: messageType,
             summary: textHeader,
@@ -21,7 +18,7 @@ export class MessageServiceExt  implements OnInit {
         });
     }
 
-    addMessageWithTime(messageType: string, textHeader : string, text: string, time: number){
+    addMessageWithTime(messageType: string, textHeader: string, text: string, time: number) {
         this.messageService.add({
             severity: messageType,
             summary: textHeader,
@@ -29,5 +26,4 @@ export class MessageServiceExt  implements OnInit {
             life: time
         });
     }
-
 }
